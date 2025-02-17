@@ -1,0 +1,139 @@
+.page-header {
+  padding: 0 20px 0 53px;
+  margin: 0;
+  height: 40px;
+  display: flex;
+  @media (width >= 1024px) {
+    padding: 0 60px;
+  }
+}
+
+ul.main-menu {
+  display: flex;
+  gap: 50px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  height: 40px;
+
+  > li {
+    display: none;
+    position: relative;
+    background: var(--color-lightgray);
+    @media (width >= 768px) {
+      display: block;
+    }
+
+    &:after {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 100%;
+      left: -5px;
+      width: 100%;
+      height: 7px;
+      background: rgba(0, 0, 0, 0.2);
+      z-index: 2;
+      transform: skewX(-60deg);
+      transition:
+        height 0.3s ease-in-out,
+        left 0.3s ease-in-out,
+        background-color 0.3s ease-in-out;
+      pointer-events: none;
+    }
+
+    &.is-active {
+      background: var(--color-light-red);
+
+      &:after {
+        background: var(--color-red);
+        height: 20px;
+        left: -17px;
+      }
+    }
+
+    &:hover {
+      background: var(--color-light-red);
+
+      &:after {
+        background: var(--color-red);
+        height: 20px;
+        left: -17px;
+      }
+    }
+
+    &.menu-item-front {
+      display: block;
+    }
+
+    > a {
+      display: flex;
+      align-items: center;
+      height: 100%;
+      padding: 10px;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+}
+
+ul.lang-switcher {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  padding: 0 30px 0 0;
+  cursor: pointer;
+
+  &.open {
+    cursor: default;
+
+    li {
+      width: 30px;
+    }
+
+    .icon-arrow {
+      transform: rotate(180deg);
+      cursor: pointer;
+    }
+  }
+
+  &.reverse-order {
+    flex-direction: row-reverse;
+  }
+
+  li {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    width: 0;
+    overflow: hidden;
+    transition: width 0.3s ease-in-out;
+
+    &.is-active {
+      width: 30px;
+    }
+  }
+
+  span,
+  a {
+    display: block;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+    margin-left: 10px;
+    text-transform: uppercase;
+  }
+
+  .icon-arrow {
+    position: absolute;
+    top: 13px;
+    right: 10px;
+    width: 9px;
+    height: 13px;
+    transition: transform 0.3s ease-in-out;
+  }
+}

@@ -3,7 +3,7 @@
   --color-red: #cc0000;
   --color-light-red: #fbc9ba;
   --color-dark: #222;
-  --color-gray: #f0f0f0;
+  --color-lightgray: #f0f0f0;
   --color-gray-beta: #bfbfbf;
 }
 
@@ -31,8 +31,9 @@ body {
 
 body {
   background-image: url("/bg-clouds.png");
-  background-position: bottom center;
-  background-size: contain;
+  background-position: center 60px;
+  background-size: cover;
+  background-repeat: no-repeat;
   color: var(--color-dark);
   font-weight: 400;
   font-style: normal;

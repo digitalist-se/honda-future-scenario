@@ -6,7 +6,7 @@ export const FrontPage = () => {
   return (
     <>
       <main className="front-page-wrapper">
-        <div id="region-grid" className="region-grid">
+        <div id="region-island" className="region-island">
           <div className="tiles">
             <div className="tile"></div>
             <div className="tile"></div>

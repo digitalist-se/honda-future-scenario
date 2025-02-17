@@ -1,6 +1,6 @@
 "use client";
 import { useEffect } from "react";
-import { useWindowSize } from "@/app/lib/useWindowSize";
+import { useWindowSize } from "@/lib/useWindowSize";
 
 export const FrontPageClient = () => {
   const { width, height } = useWindowSize();
@@ -17,8 +17,8 @@ export const FrontPageClient = () => {
     const pageHeaderElement: HTMLElement =
       document.querySelector(".page-header")!;
 
-    const regionGridElement: HTMLElement =
-      document.getElementById("region-grid")!;
+    const regionIslandElement: HTMLElement =
+      document.getElementById("region-island")!;
     const regionSlidersElement: HTMLElement =
       document.getElementById("region-sliders")!;
 
@@ -42,15 +42,15 @@ export const FrontPageClient = () => {
 
     // Resize regions on mouse moves
     const handleMouseEnterRegionSliders = () => {
-      regionGridElement.style.width = "50%";
+      regionIslandElement.style.width = "50%";
       regionSlidersElement.style.width = "50%";
     };
     const handleMouseLeaveRegionSliders = () => {
-      regionGridElement.style.width = "";
+      regionIslandElement.style.width = "";
       regionSlidersElement.style.width = "";
     };
 
-    if (regionGridElement && regionSlidersElement) {
+    if (regionIslandElement && regionSlidersElement) {
       // Expand slider region on hover on small desktop sizes
       if (width >= 1024 && width < 1440) {
         regionSlidersElement.addEventListener(
@@ -65,8 +65,6 @@ export const FrontPageClient = () => {
     }
 
     return () => {
-      console.log("unmount");
-
       regionSlidersElement.removeEventListener(
         "mouseenter",
         handleMouseEnterRegionSliders
