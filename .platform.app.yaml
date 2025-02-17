@@ -6,7 +6,7 @@ name: honda-future-scenario
 
 # The runtime the application uses.
 # Complete list of available runtimes: https://docs.platform.sh/create-apps/app-reference.html#types
-type: 'nodejs:18'
+type: 'nodejs:22'
 
 # The size of the persistent disk of the application (in MB). Minimum value is 128.
 disk: 512
@@ -47,8 +47,8 @@ hooks:
   # The build hook is run after any build flavor.
   # More information: https://docs.platform.sh/create-apps/hooks/hooks-comparison.html#build-hook
     build: |
-        yarn
-        yarn build
+        npm install
+        npm run build
         # Move committed files in soon-to-be mounts into temp directory.
         chmod +x handle_mounts.sh
         ./handle_mounts.sh

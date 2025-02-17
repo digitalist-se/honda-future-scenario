@@ -1,0 +1,78 @@
+:root {
+  --color-lightblue: #5fd0f4;
+  --color-red: #cc0000;
+  --color-light-red: #fbc9ba;
+  --color-dark: #222;
+  --color-gray: #f0f0f0;
+  --color-gray-beta: #bfbfbf;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+  }
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  max-width: 100vw;
+  overflow-x: hidden;
+  font-family: var(--font-inter);
+
+  &.scroll-lock {
+    overflow: hidden;
+  }
+}
+
+body {
+  background-image: url("/bg-clouds.png");
+  background-position: bottom center;
+  background-size: contain;
+  color: var(--color-dark);
+  font-weight: 400;
+  font-style: normal;
+  margin: 0;
+  line-height: 1.3;
+  font-size: 16px;
+  height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+p {
+  line-height: 1.6;
+  margin: 0 0 1.5em 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-inter);
+  font-weight: 700;
+  margin: 0 0 1em 0;
+  line-height: 1.2;
+  font-size: 18px;
+}
+
+h1 {
+  font-size: 20px;
+}
+
+img,
+figure,
+video,
+svg {
+  max-width: 100%;
+  height: auto;
+}

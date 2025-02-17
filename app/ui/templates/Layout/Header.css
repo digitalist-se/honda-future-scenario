@@ -1,0 +1,32 @@
+.page-header {
+  padding: 0 20px;
+  margin: 0;
+  height: 70px;
+  @media (width >= 1024px) {
+    padding: 0 60px;
+  }
+}
+
+.main-menu {
+  display: flex;
+  gap: 50px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  a {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 10px;
+    background: var(--color-gray);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 600;
+
+    &:hover,
+    &.active {
+      background: var(--color-light-red);
+    }
+  }
+}
