@@ -7,28 +7,64 @@ export const FrontPage = () => {
     <>
       <main className="front-page-wrapper">
         <div id="region-island" className="region-island">
-          <div className="tiles">
-            <div className="tile"></div>
-            <div className="tile"></div>
-            <div className="tile"></div>
-            <div className="tile"></div>
-            <div className="tile"></div>
-            <div className="tile">
-              <img src="/demo-tile.png" alt="Tile" />
-            </div>
-            <div className="tile">
-              <img src="/demo-tile.png" alt="Tile" />
-            </div>
-            <div className="tile"></div>
-            <div className="tile"></div>
-            <div className="tile"></div>
-            <div className="tile"></div>
-            <div className="tile"></div>
-            <div className="tile"></div>
-            <div className="tile"></div>
-            <div className="tile"></div>
-            <div className="tile">
-              <img src="/demo-tile.png" alt="Tile" />
+          <div className="island">
+            <div className="tiles">
+              <div className="tile">
+                <img src="/demo-tile.png" alt="Tile" />
+              </div>
+              <div className="tile">
+                <img src="/demo-tile.png" alt="Tile" />
+              </div>
+              <div className="tile">
+                <img src="/demo-tile.png" alt="Tile" />
+              </div>
+              <div className="tile">
+                <img src="/demo-tile.png" alt="Tile" />
+              </div>
+              <div className="tile">
+                <img src="/demo-tile.png" alt="Tile" />
+              </div>
+              <div className="tile">
+                <img src="/demo-tile.png" alt="Tile" />
+              </div>
+              <div className="tile is-active">
+                <img src="/demo-tile.png" alt="Tile" />
+              </div>
+              <div className="tile ">
+                <img src="/demo-tile.png" alt="Tile" />
+              </div>
+              <div className="tile">
+                <img src="/demo-tile.png" alt="Tile" />
+              </div>
+              <div className="tile">
+                <img src="/demo-tile.png" alt="Tile" />
+              </div>
+              <div className="tile">
+                <img src="/demo-tile.png" alt="Tile" />
+              </div>
+              <div className="tile">
+                <img src="/demo-tile.png" alt="Tile" />
+              </div>
+              <div className="tile">
+                <img src="/demo-tile.png" alt="Tile" />
+              </div>
+              <div className="tile">
+                <img src="/demo-tile.png" alt="Tile" />
+              </div>
+              <div className="tile">
+                <img src="/demo-tile.png" alt="Tile" />
+              </div>
+              <div className="tile">
+                <img src="/demo-tile.png" alt="Tile" />
+              </div>
+
+              <div className="island-base-left" />
+              <div className="island-base-right" />
+
+              <div className="island-scenario-title">
+                {/* <img src="/scenario-asleep.svg" alt="Scenario name" /> */}
+                <img src="/scenario-tech-titans.svg" alt="Scenario name" />
+              </div>
             </div>
           </div>
         </div>
