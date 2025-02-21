@@ -72,7 +72,7 @@ export const FrontPageClient = () => {
     const tileElements = document.querySelectorAll(".tile");
     tileElements.forEach((el) => {
       const tileElement = el as HTMLElement;
-      console.log(tileElement);
+      // console.log(tileElement);
 
       tileElement.addEventListener("click", (e) => {
         const islandRect = islandElement.getBoundingClientRect();

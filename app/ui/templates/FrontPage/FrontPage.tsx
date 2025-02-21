@@ -1,8 +1,21 @@
 import "./FrontPage.css";
 import { FrontPageClient } from "./FrontPageClient";
 import { Slider } from "../../molecules/Slider";
+import { SlidersDataType } from "@/lib/types";
 
-export const FrontPage = () => {
+interface FrontPageProps {
+  slidersData: SlidersDataType;
+}
+
+export const FrontPage = ({ slidersData }: FrontPageProps) => {
+  const slidersDataRenderable = [];
+  for (const group_name of Object.keys(slidersData)) {
+    slidersDataRenderable.push({
+      group_name,
+      sliders: slidersData[group_name],
+    });
+  }
+
   return (
     <>
       <main className="front-page-wrapper">
@@ -96,84 +109,26 @@ export const FrontPage = () => {
             <div className="region-sliders-content">
               <h1 className="sliders-title">Choose a future</h1>
 
-              <div className="slider-group">
-                <h2 className="slider-group-title">Global power shifts</h2>
-                <Slider
-                  labelMin="Status quo"
-                  labelMax="Revised"
-                  defaultValue="6"
-                />
-                <Slider
-                  labelMin="EU power increases"
-                  labelMax="EU power reduces"
-                  defaultValue="3"
-                />
-              </div>
+              {slidersDataRenderable.map((item_group, i) => {
+                return (
+                  <div key={`group-${i}`} className="slider-group">
+                    <h2 className="slider-group-title">
+                      {item_group.group_name}
+                    </h2>
 
-              <div className="slider-group">
-                <h2 className="slider-group-title">
-                  Global response to fight for raw materials
-                </h2>
-                <Slider
-                  labelMin="Conflict"
-                  labelMax="Cooperation"
-                  defaultValue="4"
-                />
-              </div>
-
-              <div className="slider-group">
-                <h2 className="slider-group-title">
-                  Quality of EU innovation & infrastructure
-                </h2>
-                <Slider labelMin="Weak" labelMax="Strong" defaultValue="7" />
-              </div>
-
-              <div className="slider-group">
-                <h2 className="slider-group-title">Socialisation</h2>
-                <Slider labelMin="Online" labelMax="Offline" defaultValue="7" />
-                <Slider labelMin="Rare" labelMax="Daily" defaultValue="5" />
-                <Slider
-                  labelMin="Remote working"
-                  labelMax="In-person working"
-                  defaultValue="8"
-                />
-              </div>
-
-              <div className="slider-group">
-                <h2 className="slider-group-title">
-                  Adoption of sustainable behaviours
-                </h2>
-                <Slider
-                  labelMin="Rare"
-                  labelMax="Widespread"
-                  defaultValue="7"
-                />
-                <Slider
-                  labelMin="Driven by government"
-                  labelMax="Driven by self"
-                  defaultValue="5"
-                />
-              </div>
-
-              <div className="slider-group">
-                <h2 className="slider-group-title">Normalisation of VR/AR</h2>
-                <Slider
-                  labelMin="Rare"
-                  labelMax="Mass adoption"
-                  defaultValue="7"
-                />
-              </div>
-
-              <div className="slider-group">
-                <h2 className="slider-group-title">
-                  Development of battery technology
-                </h2>
-                <Slider
-                  labelMin="Incremental"
-                  labelMax="Transformational"
-                  defaultValue="7"
-                />
-              </div>
+                    {item_group.sliders?.map((item_slider, j) => {
+                      return (
+                        <Slider
+                          key={`slider-${j}`}
+                          labelMin={item_slider.label_left}
+                          labelMax={item_slider.label_right}
+                          defaultValue="6"
+                        />
+                      );
+                    })}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
