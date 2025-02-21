@@ -9,52 +9,26 @@ export const FrontPage = () => {
         <div id="region-island" className="region-island">
           <div className="island">
             <div className="tiles">
-              <div className="tile">
+              <div className="tile" />
+              <div className="tile" />
+              <div className="tile has-image">
                 <img src="/demo-tile.png" alt="Tile" />
               </div>
-              <div className="tile">
+              <div className="tile" />
+              <div className="tile" />
+              <div className="tile" />
+              <div className="tile" />
+              <div className="tile" />
+              <div className="tile" />
+              <div className="tile" />
+              <div className="tile" />
+              <div className="tile has-image">
                 <img src="/demo-tile.png" alt="Tile" />
               </div>
-              <div className="tile">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile is-active">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile ">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile">
+              <div className="tile" />
+              <div className="tile" />
+              <div className="tile" />
+              <div className="tile has-image">
                 <img src="/demo-tile.png" alt="Tile" />
               </div>
 
@@ -67,7 +41,30 @@ export const FrontPage = () => {
               </div>
             </div>
           </div>
+
+          {/* We need zoomed in island clone to calculate the zoom-in animation position */}
+          <div className="island zoomed-in-clone">
+            <div className="tiles">
+              <div className="tile" />
+              <div className="tile" />
+              <div className="tile" />
+              <div className="tile" />
+              <div className="tile" />
+              <div className="tile" />
+              <div className="tile" />
+              <div className="tile" />
+              <div className="tile" />
+              <div className="tile" />
+              <div className="tile" />
+              <div className="tile" />
+              <div className="tile" />
+              <div className="tile" />
+              <div className="tile" />
+              <div className="tile" />
+            </div>
+          </div>
         </div>
+
         <div id="region-sliders" className="region-sliders">
           <div className="region-sliders-inner">
             <div className="region-sliders-content">

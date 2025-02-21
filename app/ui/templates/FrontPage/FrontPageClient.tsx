@@ -64,6 +64,31 @@ export const FrontPageClient = () => {
       }
     }
 
+    // Tiles
+    const islandElement = document.querySelector(
+      ".island:not(.zoomed-in-clone)"
+    ) as HTMLElement;
+    const tilesElement = document.querySelector(".tiles") as HTMLElement;
+    const tileElements = document.querySelectorAll(".tile");
+    tileElements.forEach((el) => {
+      const tileElement = el as HTMLElement;
+      console.log(tileElement);
+
+      tileElement.addEventListener("click", (e) => {
+        const islandRect = islandElement.getBoundingClientRect();
+        const currentTileElement = e.currentTarget as HTMLElement;
+        const tileRect = currentTileElement.getBoundingClientRect();
+        const tilesRect = tilesElement.getBoundingClientRect();
+        console.log("islandRect", islandRect);
+        console.log("tileRect", tileRect);
+        console.log("tilesRect", tilesRect);
+
+        // tilesElement.style.left = "-52%";
+        // tilesElement.style.top = "50%";
+        // tilesElement.style.scale = "1.4";
+      });
+    });
+
     return () => {
       regionSlidersElement.removeEventListener(
         "mouseenter",
