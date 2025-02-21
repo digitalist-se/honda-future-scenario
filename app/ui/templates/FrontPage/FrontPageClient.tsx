@@ -64,6 +64,23 @@ export const FrontPageClient = () => {
       }
     }
 
+    // Tiles
+    const islandElement = document.querySelector(".island");
+    const tilesElement = document.querySelector(".tiles") as HTMLElement;
+    const tileElements = document.querySelectorAll(".tile");
+    tileElements.forEach((el) => {
+      const tileElement = el as HTMLElement;
+      console.log(tileElement);
+
+      tileElement.addEventListener("click", (e) => {
+        console.log("clicked", e.currentTarget);
+
+        tilesElement.style.left = "-17%";
+        tilesElement.style.top = "22%";
+        // tilesElement.style.scale = "1.3";
+      });
+    });
+
     return () => {
       regionSlidersElement.removeEventListener(
         "mouseenter",

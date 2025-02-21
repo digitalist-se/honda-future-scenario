@@ -9,52 +9,26 @@ export const FrontPage = () => {
         <div id="region-island" className="region-island">
           <div className="island">
             <div className="tiles">
-              <div className="tile">
+              <div className="tile"></div>
+              <div className="tile"></div>
+              <div className="tile has-image">
                 <img src="/demo-tile.png" alt="Tile" />
               </div>
-              <div className="tile">
+              <div className="tile"></div>
+              <div className="tile"></div>
+              <div className="tile"></div>
+              <div className="tile"></div>
+              <div className="tile "></div>
+              <div className="tile"></div>
+              <div className="tile"></div>
+              <div className="tile"></div>
+              <div className="tile has-image">
                 <img src="/demo-tile.png" alt="Tile" />
               </div>
-              <div className="tile">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile is-active">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile ">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile">
-                <img src="/demo-tile.png" alt="Tile" />
-              </div>
-              <div className="tile">
+              <div className="tile"></div>
+              <div className="tile"></div>
+              <div className="tile"></div>
+              <div className="tile has-image">
                 <img src="/demo-tile.png" alt="Tile" />
               </div>
 
