@@ -156,7 +156,7 @@
   }
 
   img {
-    transform: rotateZ(-45deg) rotateX(-45deg) scaleY(2.448);
+    transform: rotateZ(-45deg) rotateX(-45deg) scaleY(2.448) translateY(-21%);
     transform-origin: center center;
     scale: 1.42;
     position: absolute;

@@ -83,6 +83,7 @@ export const FrontPageClient = () => {
         console.log("tileRect", tileRect);
         console.log("tilesRect", tilesRect);
 
+        // currentTileElement.classList.add("is-active");
         // tilesElement.style.left = "-52%";
         // tilesElement.style.top = "50%";
         // tilesElement.style.scale = "1.4";
