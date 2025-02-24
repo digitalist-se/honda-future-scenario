@@ -23,7 +23,16 @@ export const FrontPage = ({ slidersData }: FrontPageProps) => {
           <div className="island">
             <div className="tiles">
               <div className="tile has-image">
+                <img src="/tiles/Housing_1_techtitans.png" alt="Tile" />
+              </div>
+              <div className="tile has-image">
                 <img src="/demo-tile-bottom.png" alt="Tile" />
+              </div>
+              <div className="tile has-image">
+                <img src="/demo-tile-bottom.png" alt="Tile" />
+              </div>
+              <div className="tile has-image">
+                <img src="/tiles/growthtrade_1_techtitans.png" alt="Tile" />
               </div>
               <div className="tile has-image">
                 <img src="/demo-tile-bottom.png" alt="Tile" />
@@ -35,7 +44,7 @@ export const FrontPage = ({ slidersData }: FrontPageProps) => {
                 <img src="/demo-tile-bottom.png" alt="Tile" />
               </div>
               <div className="tile has-image">
-                <img src="/demo-tile-bottom.png" alt="Tile" />
+                <img src="/tiles/growthtrade_2_techtitans.png" alt="Tile" />
               </div>
               <div className="tile has-image">
                 <img src="/demo-tile-bottom.png" alt="Tile" />
@@ -47,28 +56,25 @@ export const FrontPage = ({ slidersData }: FrontPageProps) => {
                 <img src="/demo-tile-bottom.png" alt="Tile" />
               </div>
               <div className="tile has-image">
-                <img src="/demo-tile-bottom.png" alt="Tile" />
+                <img src="demo-tile-bottom.png" alt="Tile" />
               </div>
               <div className="tile has-image">
                 <img src="/demo-tile-bottom.png" alt="Tile" />
               </div>
               <div className="tile has-image">
-                <img src="/demo-tile-bottom.png" alt="Tile" />
+                <img
+                  src="/tiles/energypowerplant_1_techtitans.png"
+                  alt="Tile"
+                />
               </div>
               <div className="tile has-image">
-                <img src="/demo-tile-bottom.png" alt="Tile" />
+                <img
+                  src="/tiles/energypowerplant_2_techtitans.png"
+                  alt="Tile"
+                />
               </div>
               <div className="tile has-image">
-                <img src="/demo-tile-bottom.png" alt="Tile" />
-              </div>
-              <div className="tile has-image">
-                <img src="/demo-tile-bottom.png" alt="Tile" />
-              </div>
-              <div className="tile has-image">
-                <img src="/demo-tile-bottom.png" alt="Tile" />
-              </div>
-              <div className="tile has-image">
-                <img src="/demo-tile-bottom.png" alt="Tile" />
+                <img src="demo-tile-bottom.png" alt="Tile" />
               </div>
 
               <div className="island-base-left" />
