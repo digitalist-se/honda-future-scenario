@@ -21,6 +21,14 @@ export const FrontPageClient = () => {
       document.getElementById("region-island")!;
     const regionSlidersElement: HTMLElement =
       document.getElementById("region-sliders")!;
+    const regionSlidersScrollWrapperElement: HTMLElement =
+      document.querySelector(".region-sliders-scroll-wrapper")!;
+    const regionSlidersInnerElement: HTMLElement = document.querySelector(
+      ".region-sliders-inner"
+    )!;
+    const regionSlidersContentElement: HTMLElement = document.querySelector(
+      ".region-sliders-content"
+    )!;
 
     // Set Front Page Wrapper height
     const page_header_height = pageHeaderElement.clientHeight;
@@ -28,16 +36,12 @@ export const FrontPageClient = () => {
     frontPageWrapperElement.style.height = `${page_wrapper_height}px`;
 
     // Set Sliders container height based on page height
-    const regionSlidersInnerElement: HTMLElement = document.querySelector(
-      ".region-sliders-inner"
-    )!;
-    const regionSlidersContentElement: HTMLElement = document.querySelector(
-      ".region-sliders-content"
-    )!;
     if (regionSlidersContentElement.clientHeight > page_wrapper_height) {
       regionSlidersInnerElement.style.height = `${page_wrapper_height}px`;
+      regionSlidersScrollWrapperElement.style.display = "block";
     } else {
       regionSlidersInnerElement.style.height = "auto";
+      regionSlidersScrollWrapperElement.style.display = "flex";
     }
 
     // Resize regions on mouse moves

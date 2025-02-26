@@ -94,31 +94,33 @@ export const FrontPage = ({
         </div>
 
         <div id="region-sliders" className="region-sliders">
-          <div className="region-sliders-inner">
-            <div className="region-sliders-content">
-              <h1 className="sliders-title">Choose a future</h1>
+          <div className="region-sliders-scroll-wrapper">
+            <div className="region-sliders-inner">
+              <div className="region-sliders-content">
+                <h1 className="sliders-title">Choose a future</h1>
 
-              {slidersDataRenderable.map((item_group, i) => {
-                return (
-                  <div key={`group-${i}`} className="slider-group">
-                    <h2 className="slider-group-title">
-                      {item_group.group_name}
-                    </h2>
+                {slidersDataRenderable.map((item_group, i) => {
+                  return (
+                    <div key={`group-${i}`} className="slider-group">
+                      <h2 className="slider-group-title">
+                        {item_group.group_name}
+                      </h2>
 
-                    {item_group.sliders?.map((item_slider, j) => {
-                      return (
-                        <Slider
-                          key={`slider-${j}`}
-                          scenariosData={scenariosData}
-                          item_slider={item_slider}
-                          currentScenario={currentScenario}
-                          setCurrentScenario={setCurrentScenario}
-                        />
-                      );
-                    })}
-                  </div>
-                );
-              })}
+                      {item_group.sliders?.map((item_slider, j) => {
+                        return (
+                          <Slider
+                            key={`slider-${j}`}
+                            scenariosData={scenariosData}
+                            item_slider={item_slider}
+                            currentScenario={currentScenario}
+                            setCurrentScenario={setCurrentScenario}
+                          />
+                        );
+                      })}
+                    </div>
+                  );
+                })}
+              </div>
             </div>
           </div>
         </div>
