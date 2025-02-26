@@ -19,7 +19,7 @@ export const Header = ({ lang, currentPage }: HeaderProps) => {
               (currentPage === "front" ? " is-active" : "")
             }
           >
-            <Link href={`/${lang}`}>Project 2035</Link>
+            <Link href={`/${lang}`}>FUTEUR 35</Link>
           </li>
           <li
             className={

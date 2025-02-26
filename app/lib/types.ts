@@ -6,3 +6,8 @@ export type SliderType = {
 };
 
 export type SlidersDataType = Record<string, SliderType[]>;
+
+export type ScenarioType = {
+  id: string;
+  name: string;
+};

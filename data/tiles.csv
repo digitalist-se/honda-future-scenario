@@ -1,0 +1,17 @@
+id,theme,center_tile,tech_titans,stagnation_nation,asleep_at_the_wheel,cost_of_safety,leading_lagging,us_topia
+A1,ai,A1,example.png,example.png,example.png,example.png,example.png,example.png
+B1,housing,C1,Housing_1_techtitans.png,example.png,example.png,example.png,example.png,growthtrade_1_techtitans.png
+C1,housing,C1,Housing_1_techtitans.png,example.png,example.png,example.png,example.png,growthtrade_2_techtitans.png
+D1,housing,C1,Housing_1_techtitans.png,example.png,example.png,example.png,example.png,example.png
+A2,energy,A2,energypowerplant_1_techtitans.png,energypowerplant_1_techtitans.png,energypowerplant_1_techtitans.png,energypowerplant_1_techtitans.png,energypowerplant_1_techtitans.png,energypowerplant_1_techtitans.png
+B2,transport,C2,example.png,example.png,example.png,example.png,example.png,Housing_1_techtitans.png
+C2,transport,C2,example.png,example.png,example.png,example.png,example.png,Housing_1_techtitans.png
+D2,transport,C2,example.png,example.png,example.png,example.png,example.png,Housing_1_techtitans.png
+A3,energy,A3,energypowerplant_2_techtitans.png,energypowerplant_1_techtitans.png,energypowerplant_1_techtitans.png,energypowerplant_1_techtitans.png,energypowerplant_1_techtitans.png,energypowerplant_1_techtitans.png
+B3,parliament,B3,example.png,growthtrade_1_techtitans.png,example.png,example.png,example.png,example.png
+C3,parliament,C3,example.png,growthtrade_2_techtitans.png,example.png,example.png,example.png,example.png
+D3,court,D3,example.png,example.png,example.png,example.png,example.png,example.png
+A4,growth_trade,A4,growthtrade_1_techtitans.png,Housing_1_techtitans.png,example.png,example.png,example.png,example.png
+B4,growth_trade,B4,growthtrade_2_techtitans.png,Housing_1_techtitans.png,example.png,example.png,example.png,example.png
+C4,migration,C4,example.png,example.png,example.png,example.png,example.png,example.png
+D4,migration,D4,example.png,example.png,example.png,example.png,example.png,example.png
