@@ -4,7 +4,13 @@ import { useState, useEffect } from "react";
 import "./FrontPage.css";
 import { FrontPageClient } from "./FrontPageClient";
 import { Slider } from "../../molecules/Slider";
-import { ScenarioType, SlidersDataType } from "@/lib/types";
+import {
+  ScenarioThemeContent,
+  ScenarioType,
+  SlidersDataType,
+  ThemesDataType,
+  ThemeType,
+} from "@/lib/types";
 import { Tile } from "./Tile";
 import { IconClose } from "@/ui/atoms/icons";
 
@@ -12,14 +18,25 @@ interface FrontPageProps {
   slidersData: SlidersDataType;
   scenariosData: ScenarioType[];
   tileData: any[];
+  themesData: ThemesDataType;
+  scenarioThemeContentData: ScenarioThemeContent[];
 }
 
 export const FrontPage = ({
   scenariosData,
   slidersData,
   tileData,
+  themesData,
+  scenarioThemeContentData,
 }: FrontPageProps) => {
   const [currentScenario, setCurrentScenario] = useState(scenariosData[0]);
+  const [currentTheme, setCurrentTheme] = useState<ThemeType | undefined>();
+
+  const currentScenarioThemeContent = scenarioThemeContentData.find(
+    (item) =>
+      item.scenario_id === currentScenario.id &&
+      item.theme_id === currentTheme?.id
+  );
 
   const slidersDataRenderable = [];
   for (const group_name of Object.keys(slidersData)) {
@@ -39,9 +56,13 @@ export const FrontPage = ({
                 return (
                   <Tile
                     key={tile.id}
-                    data={tile}
+                    tileData={tile}
                     currentScenario={currentScenario}
                     scenariosData={scenariosData}
+                    onlyWrapper={false}
+                    themesData={themesData}
+                    currentTheme={currentTheme}
+                    setCurrentTheme={setCurrentTheme}
                   />
                 );
               })}
@@ -62,10 +83,6 @@ export const FrontPage = ({
                     />
                   );
                 })}
-                {/* <img
-                  src={`/scenario_titles/${currentScenario.id}.svg`}
-                  alt={currentScenario.name}
-                /> */}
               </div>
             </div>
           </div>
@@ -73,22 +90,17 @@ export const FrontPage = ({
           {/* We need zoomed in island clone to calculate the zoom-in animation position */}
           <div className="island zoomed-in-clone">
             <div className="tiles">
-              <div className="tile" />
-              <div className="tile" />
-              <div className="tile" />
-              <div className="tile" />
-              <div className="tile" />
-              <div className="tile" />
-              <div className="tile" />
-              <div className="tile" />
-              <div className="tile" />
-              <div className="tile" />
-              <div className="tile" />
-              <div className="tile" />
-              <div className="tile" />
-              <div className="tile" />
-              <div className="tile" />
-              <div className="tile" />
+              {tileData.map((tile) => {
+                return (
+                  <Tile
+                    key={tile.id}
+                    tileData={tile}
+                    currentScenario={currentScenario}
+                    scenariosData={scenariosData}
+                    onlyWrapper={true}
+                  />
+                );
+              })}
             </div>
           </div>
         </div>
@@ -130,19 +142,26 @@ export const FrontPage = ({
             <IconClose />
           </button>
           <div className="mst-title-wrapper">
-            <strong>Growth & Trade</strong> | Asleep at the Wheel
+            <strong>{currentScenario.name}</strong> | {currentTheme?.name}
           </div>
           <div className="mst-content-wrapper">
-            <p>
-              But I must explain to you how all this mistaken idea of denouncing
-              of a pleasure and praising pain was born and I will give you a
-              complete account of the system, and expound the actual teachings
-              of the great explorer of the truth, the master-builder of human
-              happiness. No one rejects, dislikes, or avoids pleasure itself,
-              because it is pleasure, but because those who do not know how to
-              pursue pleasure rationally encounter consequences that are
-              extremely painful.
-            </p>
+            <div>
+              {currentScenarioThemeContent?.text && (
+                <p
+                  dangerouslySetInnerHTML={{
+                    __html: currentScenarioThemeContent?.text,
+                  }}
+                ></p>
+              )}
+            </div>
+            {currentScenarioThemeContent?.image ? (
+              <div className="image-wrapper">
+                <img
+                  src={`/content/${currentScenarioThemeContent.image}`}
+                  alt=""
+                />
+              </div>
+            ) : null}
           </div>
         </div>
       </main>

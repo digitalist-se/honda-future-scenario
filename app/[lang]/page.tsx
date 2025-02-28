@@ -1,6 +1,13 @@
 import { Header } from "@/ui/templates/Layout/Header/Header";
 import { FrontPage } from "@/ui/templates/FrontPage";
-import { SlidersDataType, SliderType, ScenarioType } from "@/lib/types";
+import {
+  SlidersDataType,
+  SliderType,
+  ScenarioType,
+  ThemesDataType,
+  ThemeType,
+  ScenarioThemeContent,
+} from "@/lib/types";
 import { getDataFromCSV } from "@/lib/utils";
 
 export default async function Page({
@@ -31,15 +38,22 @@ export default async function Page({
   //
   // Themes
   //
+  const themesDataRaw = getDataFromCSV("themes.csv") as ThemeType[];
+  const themesData: ThemesDataType = {};
+  for (const theme of themesDataRaw) {
+    themesData[theme.id] = theme;
+  }
 
   //
   // Tile Themes
   //
   const tileData = getDataFromCSV("tiles.csv") as any;
-  // const tileData: any = {};
-  // for (const item of tileDataRaw) {
-  //   tileData[item.id] = item;
-  // }
+
+  //
+  // Scenario Theme Content
+  const scenarioThemeContentData = getDataFromCSV(
+    "scenario_theme_content.csv"
+  ) as ScenarioThemeContent[];
 
   return (
     <>
@@ -48,6 +62,8 @@ export default async function Page({
         scenariosData={scenariosDataRaw}
         slidersData={slidersData}
         tileData={tileData}
+        themesData={themesData}
+        scenarioThemeContentData={scenarioThemeContentData}
       />
     </>
   );

@@ -3,9 +3,19 @@
   height: 100%;
   background: var(--color-gray-beta);
   position: relative;
-  transition: background 0.2s ease-in-out;
+  transition:
+    background 0.2s ease-in-out,
+    opacity 0.6s ease-in-out;
 
-  &:hover {
+  &.inactive-theme {
+    opacity: 0.5;
+
+    img.is-current-scenario {
+      opacity: 0;
+    }
+  }
+
+  &:not(.zoomed-in):hover {
     background: var(--color-lightblue);
     cursor: pointer;
 
@@ -58,23 +68,6 @@
       bottom 0.3s ease-in-out;
   }
 
-  &.is-active {
-    &:before {
-      left: -10%;
-      height: 20%;
-    }
-
-    &:after {
-      width: 20%;
-      bottom: 10%;
-    }
-
-    img {
-      left: -20%;
-      top: -20%;
-    }
-  }
-
   img {
     transform: rotateZ(-45deg) rotateX(-45deg) scaleY(2.448) translateY(-21%);
     transform-origin: center center;
@@ -92,7 +85,7 @@
       opacity 0.6s;
     opacity: 0;
 
-    &.is-active {
+    &.is-current-scenario {
       opacity: 1;
     }
   }

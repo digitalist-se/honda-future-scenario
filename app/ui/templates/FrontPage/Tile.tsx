@@ -1,25 +1,52 @@
-import { ScenarioType } from "@/lib/types";
+import { ScenarioType, ThemesDataType, ThemeType } from "@/lib/types";
 import "./Tile.css";
 
 interface TileProps {
-  data: any;
+  tileData: any;
   currentScenario: ScenarioType;
   scenariosData: ScenarioType[];
+  onlyWrapper?: boolean;
+  themesData?: ThemesDataType;
+  currentTheme?: ThemeType;
+  setCurrentTheme?: any;
 }
 
-export const Tile = ({ data, currentScenario, scenariosData }: TileProps) => {
+export const Tile = ({
+  tileData,
+  currentScenario,
+  scenariosData,
+  onlyWrapper,
+  themesData,
+  currentTheme,
+  setCurrentTheme,
+}: TileProps) => {
+  const handleOnClick = () => {
+    setCurrentTheme(themesData![tileData.theme]);
+  };
+
   return (
-    <div className="tile">
-      {scenariosData.map((scenario, i) => {
-        return (
-          <img
-            key={`tile-${i}`}
-            src={`/tiles/${data[scenario.id]}`}
-            alt={data.theme}
-            className={currentScenario.id === scenario.id ? "is-active" : ""}
-          />
-        );
-      })}
+    <div
+      className="tile"
+      data-theme={tileData.theme}
+      data-tile-id={tileData.id}
+      onClick={handleOnClick}
+    >
+      {!onlyWrapper
+        ? scenariosData.map((scenario, i) => {
+            return (
+              <img
+                key={`tile-${i}`}
+                src={`/tiles/${tileData[scenario.id]}`}
+                alt={tileData.theme}
+                className={
+                  currentScenario.id === scenario.id
+                    ? "is-current-scenario"
+                    : ""
+                }
+              />
+            );
+          })
+        : null}
     </div>
   );
 };
