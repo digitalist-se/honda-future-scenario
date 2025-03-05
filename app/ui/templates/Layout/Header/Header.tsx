@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import "./Header.css";
 import Link from "next/link";
+import { IconArrowRight } from "@/ui/atoms/icons";
 
 interface HeaderProps {
   lang: string;
@@ -47,6 +48,7 @@ export const Header = ({ lang, currentPage }: HeaderProps) => {
           >
             <Link href={`/${lang}`}>FUTEUR 35</Link>
           </li>
+
           <li
             className={
               "menu-item" + (currentPage === "about" ? " is-active" : "")
@@ -54,6 +56,7 @@ export const Header = ({ lang, currentPage }: HeaderProps) => {
           >
             <Link href={`/${lang}/about`}>About this project</Link>
           </li>
+
           {/* <li
             className={
               "menu-item" + (currentPage === "contact" ? " is-active" : "")
@@ -62,7 +65,7 @@ export const Header = ({ lang, currentPage }: HeaderProps) => {
             <Link href={`/${lang}/contact`}>Contact</Link>
           </li> */}
 
-          {/* <li className="">
+          <li className="">
             <ul className={"lang-switcher"}>
               <li className="is-active">
                 <span>{lang}</span>
@@ -77,7 +80,7 @@ export const Header = ({ lang, currentPage }: HeaderProps) => {
 
               <IconArrowRight className="icon-arrow" />
             </ul>
-          </li> */}
+          </li>
         </ul>
 
         <div className="header-border" />
