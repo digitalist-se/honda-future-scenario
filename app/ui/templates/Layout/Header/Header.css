@@ -1,11 +1,26 @@
 .page-header {
-  padding: 0 20px 0 53px;
+  opacity: 0;
+  padding: 0 20px;
   margin: 0;
   height: 40px;
-  display: flex;
-  @media (width >= 1024px) {
+  position: relative;
+  @media (width >= 768px) {
+    opacity: 1;
     padding: 0 60px;
   }
+}
+
+/* Border */
+.header-border {
+  display: block;
+  height: 20px;
+  width: calc(100%);
+  background: var(--color-lightblue);
+  transform: skewX(-60deg);
+  position: absolute;
+  z-index: 0;
+  top: 100%;
+  left: 44px;
 }
 
 ul.main-menu {

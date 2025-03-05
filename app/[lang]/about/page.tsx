@@ -1,4 +1,5 @@
-import { Header } from "@/ui/templates/Layout/Header/Header";
+import { Header } from "@/ui/templates/Layout/Header";
+import { AboutPage } from "@/ui/templates/AboutPage";
 
 export default async function Page({
   params,
@@ -10,6 +11,7 @@ export default async function Page({
   return (
     <>
       <Header lang={lang} currentPage="about" />
+      <AboutPage />
     </>
   );
 }

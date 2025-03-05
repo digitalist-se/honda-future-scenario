@@ -1,7 +1,8 @@
+"use client";
+
+import { useEffect } from "react";
 import "./Header.css";
 import Link from "next/link";
-import { IconArrowRight } from "@/ui/atoms/icons/IconArrowRight";
-import { HeaderClient } from "./HeaderClient";
 
 interface HeaderProps {
   lang: string;
@@ -9,6 +10,31 @@ interface HeaderProps {
 }
 
 export const Header = ({ lang, currentPage }: HeaderProps) => {
+  useEffect(() => {
+    const langSwitcherElement = document.querySelector(
+      ".lang-switcher"
+    ) as HTMLElement;
+
+    if (!langSwitcherElement) return;
+
+    const handlelangSwitcherClick = (e: MouseEvent) => {
+      const element = e.currentTarget as HTMLElement;
+      if (element.classList.contains("open")) {
+        element.classList.remove("open");
+      } else {
+        element.classList.add("open");
+      }
+    };
+
+    langSwitcherElement.addEventListener("click", handlelangSwitcherClick);
+
+    return () => {
+      if (!langSwitcherElement) return;
+
+      langSwitcherElement.removeEventListener("click", handlelangSwitcherClick);
+    };
+  }, []);
+
   return (
     <>
       <header className="page-header">
@@ -28,15 +54,15 @@ export const Header = ({ lang, currentPage }: HeaderProps) => {
           >
             <Link href={`/${lang}/about`}>About this project</Link>
           </li>
-          <li
+          {/* <li
             className={
               "menu-item" + (currentPage === "contact" ? " is-active" : "")
             }
           >
             <Link href={`/${lang}/contact`}>Contact</Link>
-          </li>
+          </li> */}
 
-          <li className="">
+          {/* <li className="">
             <ul className={"lang-switcher"}>
               <li className="is-active">
                 <span>{lang}</span>
@@ -51,10 +77,11 @@ export const Header = ({ lang, currentPage }: HeaderProps) => {
 
               <IconArrowRight className="icon-arrow" />
             </ul>
-          </li>
+          </li> */}
         </ul>
+
+        <div className="header-border" />
       </header>
-      <HeaderClient />
     </>
   );
 };

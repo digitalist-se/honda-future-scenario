@@ -71,12 +71,12 @@ h6 {
   font-family: var(--font-inter);
   font-weight: 700;
   margin: 0 0 1em 0;
-  line-height: 1.2;
+  line-height: 1.5;
   font-size: 18px;
 }
 
 h1 {
-  font-size: 20px;
+  font-size: 24px;
 }
 
 img,

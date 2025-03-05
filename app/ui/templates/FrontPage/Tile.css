@@ -12,6 +12,10 @@
 
     img.is-current-scenario {
       opacity: 0;
+      /* 
+      opacity: 1;
+      filter: invert() contrast(0.1) brightness(1.8) grayscale(1); 
+      */
     }
   }
 
@@ -82,7 +86,8 @@
     transition:
       left 0.3s ease-in-out,
       top 0.3s ease-in-out,
-      opacity 0.6s;
+      opacity 0.6s,
+      filter 0.6s;
     opacity: 0;
 
     &.is-current-scenario {
