@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./ui/globals.css";
+import Script from "next/script";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -19,6 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable}`}>{children}</body>
+      <Script
+        src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTHA_SITE_KEY}`}
+      />
     </html>
   );
 }

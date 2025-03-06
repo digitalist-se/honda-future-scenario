@@ -1,4 +1,5 @@
 import "./AboutPage.css";
+import { ContactForm } from "./ContactForm";
 
 export const AboutPage = () => {
   return (
@@ -33,6 +34,8 @@ export const AboutPage = () => {
             Want to know more or be involved with the activity as it grows?
             Contact us here.
           </p>
+
+          <ContactForm />
         </div>
 
         <div className="island island-2">

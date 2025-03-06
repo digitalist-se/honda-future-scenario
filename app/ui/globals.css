@@ -87,6 +87,24 @@ svg {
   height: auto;
 }
 
+.button {
+  font-weight: 600;
+  color: #000;
+  font-size: 20px;
+  background: var(--color-lightblue);
+  border: 0;
+  padding: 8px 25px;
+  cursor: pointer;
+}
+
+.grecaptcha-badge {
+  visibility: hidden !important;
+
+  .show-recaptcha-badge & {
+    visibility: visible !important;
+  }
+}
+
 /* Animations */
 @keyframes move-bg {
   from {
