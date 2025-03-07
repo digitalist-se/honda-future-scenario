@@ -44,7 +44,7 @@
 .tiles {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 2px;
+  gap: 0;
   transform: rotateX(45deg) rotateZ(45deg) skewX(-5.65deg) skewY(-5.65deg)
     translateY(-30%) translateX(-30%);
   position: relative;
