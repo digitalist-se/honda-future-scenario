@@ -15,7 +15,7 @@
 .form-item {
   input[type="text"],
   input[type="email"] {
-    font-family: var(--font-inter);
+    font-family: var(--font-avenir-next);
     background: rgba(0, 0, 0, 0.08);
     border: 0;
     width: 100%;
@@ -29,7 +29,7 @@
 }
 
 .form-item textarea {
-  font-family: var(--font-inter);
+  font-family: var(--font-avenir-next);
   width: 100%;
   background: rgba(0, 0, 0, 0.08);
   border: 0;

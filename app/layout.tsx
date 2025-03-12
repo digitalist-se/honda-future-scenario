@@ -1,11 +1,37 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./ui/globals.css";
 import Script from "next/script";
+import localFont from "next/font/local";
 
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin", "latin-ext"],
+const fontAvenirNext = localFont({
+  variable: "--font-avenir-next",
+  src: [
+    {
+      path: "./../public/fonts/AvenirNextLight.woff2",
+      weight: "300",
+      style: "normal",
+    },
+    {
+      path: "./../public/fonts/AvenirNextRegular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "./../public/fonts/AvenirNextMedium.woff2",
+      weight: "500",
+      style: "normal",
+    },
+    {
+      path: "./../public/fonts/AvenirNextDemi.woff2",
+      weight: "600",
+      style: "normal",
+    },
+    {
+      path: "./../public/fonts/AvenirNextBold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
 });
 
 export const metadata: Metadata = {
@@ -19,7 +45,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable}`}>{children}</body>
+      <body className={`${fontAvenirNext.variable}`}>{children}</body>
       <Script
         src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTHA_SITE_KEY}`}
       />
