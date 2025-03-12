@@ -40,13 +40,22 @@ export const FrontPageClient = () => {
     ) as HTMLElement;
     const tilesElement = document.querySelector(".tiles") as HTMLElement;
 
+    const infoElement = document.getElementById("info") as HTMLElement;
+
     // Set Front Page Wrapper height
     const page_header_height = pageHeaderElement.clientHeight;
     const page_wrapper_height = height - page_header_height;
-    frontPageWrapperElement.style.height = `${page_wrapper_height}px`;
+    if (width >= 1024) {
+      frontPageWrapperElement.style.height = `${page_wrapper_height}px`;
+    } else {
+      frontPageWrapperElement.style.height = `${height}px`;
+    }
 
     // Set Sliders container height based on page height
-    if (regionSlidersContentElement.clientHeight > page_wrapper_height) {
+    if (
+      regionSlidersContentElement.clientHeight > page_wrapper_height &&
+      width >= 1024
+    ) {
       regionSlidersInnerElement.style.height = `${page_wrapper_height}px`;
       regionSlidersScrollWrapperElement.style.display = "block";
     } else {

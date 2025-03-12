@@ -42,13 +42,15 @@ body {
   margin: 0;
   line-height: 1.3;
   font-size: 16px;
-  height: 100vh;
   animation-name: move-bg;
   animation-duration: 120s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
   @media (width >= 768px) {
     animation-duration: 90s;
+  }
+  @media (width >= 1024px) {
+    height: 100vh;
   }
 }
 
@@ -85,6 +87,11 @@ video,
 svg {
   max-width: 100%;
   height: auto;
+}
+
+button {
+  cursor: pointer;
+  border: 0;
 }
 
 .button {

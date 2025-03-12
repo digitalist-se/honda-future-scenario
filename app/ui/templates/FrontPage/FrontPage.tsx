@@ -164,6 +164,8 @@ export const FrontPage = ({
             ) : null}
           </div>
         </div>
+
+        <div id="info"></div>
       </main>
       <FrontPageClient />
     </>

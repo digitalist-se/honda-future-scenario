@@ -1,9 +1,10 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import "./Header.css";
 import Link from "next/link";
-import { IconArrowRight } from "@/ui/atoms/icons";
+import { IconArrowRight, IconMenu, IconClose } from "@/ui/atoms/icons";
+import { useWindowSize } from "@/lib/useWindowSize";
 
 interface HeaderProps {
   lang: string;
@@ -11,77 +12,112 @@ interface HeaderProps {
 }
 
 export const Header = ({ lang, currentPage }: HeaderProps) => {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { width } = useWindowSize();
+
   useEffect(() => {
     const langSwitcherElement = document.querySelector(
       ".lang-switcher"
     ) as HTMLElement;
 
-    if (!langSwitcherElement) return;
-
-    const handlelangSwitcherClick = (e: MouseEvent) => {
-      const element = e.currentTarget as HTMLElement;
-      if (element.classList.contains("open")) {
-        element.classList.remove("open");
+    const handlelangSwitcherClick = () => {
+      if (langSwitcherElement.classList.contains("open")) {
+        langSwitcherElement.classList.remove("open");
       } else {
-        element.classList.add("open");
+        langSwitcherElement.classList.add("open");
       }
     };
 
-    langSwitcherElement.addEventListener("click", handlelangSwitcherClick);
+    if (langSwitcherElement) {
+      langSwitcherElement.addEventListener("click", handlelangSwitcherClick);
+    }
 
     return () => {
-      if (!langSwitcherElement) return;
-
-      langSwitcherElement.removeEventListener("click", handlelangSwitcherClick);
+      if (langSwitcherElement) {
+        langSwitcherElement.removeEventListener(
+          "click",
+          handlelangSwitcherClick
+        );
+      }
     };
-  }, []);
+  }, [width]);
 
   return (
     <>
       <header className="page-header">
-        <ul className="main-menu">
-          <li
-            className={
-              "menu-item menu-item-front" +
-              (currentPage === "front" ? " is-active" : "")
+        <button
+          className={[
+            "button-menu-togggle",
+            mobileMenuOpen ? "mobile-menu-open" : "",
+          ].join(" ")}
+          onClick={() => {
+            if (mobileMenuOpen) {
+              setMobileMenuOpen(false);
+            } else {
+              setMobileMenuOpen(true);
             }
-          >
-            <Link href={`/${lang}`}>FUTEUR 35</Link>
-          </li>
+          }}
+        >
+          <IconMenu className="icon-menu" />
+          <IconClose className="icon-close" />
+        </button>
 
-          <li
-            className={
-              "menu-item" + (currentPage === "about" ? " is-active" : "")
-            }
-          >
-            <Link href={`/${lang}/about`}>About this project</Link>
-          </li>
+        <div
+          className={[
+            "main-menu-wrapper",
+            mobileMenuOpen ? "mobile-menu-open" : "",
+          ].join(" ")}
+        >
+          <ul className="main-menu">
+            <li
+              className={
+                "menu-item menu-item-front" +
+                (currentPage === "front" ? " is-active" : "")
+              }
+            >
+              <Link
+                href={`/${lang}`}
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                }}
+              >
+                FUTEUR 35
+              </Link>
+            </li>
 
-          {/* <li
-            className={
-              "menu-item" + (currentPage === "contact" ? " is-active" : "")
-            }
-          >
-            <Link href={`/${lang}/contact`}>Contact</Link>
-          </li> */}
+            <li
+              className={
+                "menu-item" + (currentPage === "about" ? " is-active" : "")
+              }
+            >
+              <Link
+                href={`/${lang}/about`}
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                }}
+              >
+                About this project
+              </Link>
+            </li>
 
-          <li className="">
-            <ul className={"lang-switcher"}>
-              <li className="is-active">
-                <span>{lang}</span>
-              </li>
-              <li>
-                {lang === "en" ? (
-                  <Link href={`/jp`}>JP</Link>
-                ) : (
-                  <Link href={`/en`}>EN</Link>
-                )}
-              </li>
+            <li className="menu-item-language">
+              <ul className={"lang-switcher"}>
+                <li className="is-active">
+                  <span>{lang}</span>
+                </li>
+                <li>
+                  {lang === "en" ? (
+                    <Link href={`/jp`}>JP</Link>
+                  ) : (
+                    <Link href={`/en`}>EN</Link>
+                  )}
+                </li>
 
-              <IconArrowRight className="icon-arrow" />
-            </ul>
-          </li>
-        </ul>
+                <IconArrowRight className="icon-arrow" />
+              </ul>
+            </li>
+          </ul>
+        </div>
 
         <div className="header-border" />
       </header>
