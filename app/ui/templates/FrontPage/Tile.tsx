@@ -1,5 +1,6 @@
 import { ScenarioType, ThemesDataType, ThemeType } from "@/lib/types";
 import "./Tile.css";
+import Image from "next/image";
 
 interface TileProps {
   tileData: any;
@@ -34,7 +35,7 @@ export const Tile = ({
       {!onlyWrapper
         ? scenariosData.map((scenario, i) => {
             return (
-              <img
+              <Image
                 key={`tile-${i}`}
                 src={`/tiles/${tileData[scenario.id]}`}
                 alt={tileData.theme}
@@ -43,6 +44,8 @@ export const Tile = ({
                     ? "is-current-scenario"
                     : ""
                 }
+                width={300}
+                height={300}
               />
             );
           })

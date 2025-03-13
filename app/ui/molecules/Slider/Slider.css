@@ -54,6 +54,8 @@
   background-image: url("/slider-handle.svg");
   background-repeat: no-repeat;
   background-size: contain;
+  background-color: transparent;
+  box-shadow: none !important;
   height: 34px;
   width: 44px;
 }

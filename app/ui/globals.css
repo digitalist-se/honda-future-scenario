@@ -43,12 +43,9 @@ body {
   line-height: 1.3;
   font-size: 16px;
   animation-name: move-bg;
-  animation-duration: 120s;
+  animation-duration: 90s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
-  @media (width >= 768px) {
-    animation-duration: 90s;
-  }
   @media (width >= 1024px) {
     height: 100vh;
   }
@@ -92,6 +89,13 @@ svg {
 button {
   cursor: pointer;
   border: 0;
+  font-family: var(--font-avenir-next);
+  color: #000;
+}
+
+input,
+textarea {
+  font-family: var(--font-avenir-next);
 }
 
 .button {

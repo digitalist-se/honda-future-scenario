@@ -51,10 +51,10 @@ export const Header = ({ lang, currentPage }: HeaderProps) => {
             mobileMenuOpen ? "mobile-menu-open" : "",
           ].join(" ")}
           onClick={() => {
-            if (mobileMenuOpen) {
-              setMobileMenuOpen(false);
+            if (document.body.classList.contains("mobile-menu-open")) {
+              document.body.classList.remove("mobile-menu-open");
             } else {
-              setMobileMenuOpen(true);
+              document.body.classList.add("mobile-menu-open");
             }
           }}
         >
