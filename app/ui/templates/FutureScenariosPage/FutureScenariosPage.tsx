@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import "./FrontPage.css";
+import "./FutureScenariosPage.css";
 import { Slider } from "../../molecules/Slider";
 import {
   ScenarioThemeContent,
@@ -9,30 +9,34 @@ import {
   SlidersDataType,
   ThemesDataType,
   ThemeType,
+  TileDataType,
 } from "@/lib/types";
 import { Tile } from "./Tile";
-import { IconClose, IconArrowDown } from "@/ui/atoms/icons";
+import { IconArrowDown } from "@/ui/atoms/icons";
 import { useWindowSize } from "@/lib/useWindowSize";
+import { ModalScenarioTheme } from "./ModalScenarioTheme";
 
-interface FrontPageProps {
+interface FutureScenariosPageProps {
   slidersData: SlidersDataType;
   scenariosData: ScenarioType[];
-  tileData: any[];
+  tilesData: TileDataType[];
   themesData: ThemesDataType;
   scenarioThemeContentData: ScenarioThemeContent[];
 }
 
-export const FrontPage = ({
+export const FutureScenariosPage = ({
   scenariosData,
   slidersData,
-  tileData,
+  tilesData,
   themesData,
   scenarioThemeContentData,
-}: FrontPageProps) => {
+}: FutureScenariosPageProps) => {
   const islandRef = useRef<HTMLDivElement | null>(null);
   const islandCloneRef = useRef<HTMLDivElement | null>(null);
-  const tilesRef = useRef<HTMLDivElement | null>(null);
-  const tilesCloneRef = useRef<HTMLDivElement | null>(null);
+  const tilesWrapperRef = useRef<HTMLDivElement | null>(null);
+  const tileRefs = useRef<(HTMLButtonElement | null)[]>([]);
+  const tilesWrapperCloneRef = useRef<HTMLDivElement | null>(null);
+  const tileCloneRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const regionSlidersRef = useRef<HTMLDivElement | null>(null);
   const slidersTitleRef = useRef<HTMLDivElement | null>(null);
   const slidersWrapperRef = useRef<HTMLDivElement | null>(null);
@@ -58,26 +62,26 @@ export const FrontPage = ({
     });
   }
 
-  const processTilesDimensions = () => {
+  const processTilesWrapperDimensions = () => {
     const islandWidth: number = islandRef.current!.clientWidth;
     const islandHeight: number = islandRef.current!.clientHeight;
     if (islandWidth >= islandHeight) {
-      tilesRef.current!.style.height = `${islandHeight}px`;
-      tilesRef.current!.style.width = `${islandHeight}px`;
+      tilesWrapperRef.current!.style.height = `${islandHeight}px`;
+      tilesWrapperRef.current!.style.width = `${islandHeight}px`;
 
-      tilesCloneRef.current!.style.height = `${islandHeight}px`;
-      tilesCloneRef.current!.style.width = `${islandHeight}px`;
+      tilesWrapperCloneRef.current!.style.height = `${islandHeight}px`;
+      tilesWrapperCloneRef.current!.style.width = `${islandHeight}px`;
     } else {
-      tilesRef.current!.style.height = `${islandWidth}px`;
-      tilesRef.current!.style.width = `${islandWidth}px`;
+      tilesWrapperRef.current!.style.height = `${islandWidth}px`;
+      tilesWrapperRef.current!.style.width = `${islandWidth}px`;
 
-      tilesCloneRef.current!.style.height = `${islandWidth}px`;
-      tilesCloneRef.current!.style.width = `${islandWidth}px`;
+      tilesWrapperCloneRef.current!.style.height = `${islandWidth}px`;
+      tilesWrapperCloneRef.current!.style.width = `${islandWidth}px`;
     }
   };
 
   useEffect(() => {
-    if (!width || !height) return;
+    if (!width || !height || !islandRef?.current) return;
 
     const frontPageWrapperElement: HTMLElement | null = document.querySelector(
       ".front-page-wrapper"
@@ -87,29 +91,6 @@ export const FrontPage = ({
 
     const pageHeaderElement: HTMLElement =
       document.querySelector(".page-header")!;
-
-    const regionIslandElement: HTMLElement =
-      document.getElementById("region-island")!;
-    const regionSlidersElement: HTMLElement =
-      document.getElementById("region-sliders")!;
-    const regionSlidersScrollWrapperElement: HTMLElement =
-      document.querySelector(".region-sliders-scroll-wrapper")!;
-    const regionSlidersInnerElement: HTMLElement = document.querySelector(
-      ".region-sliders-inner"
-    )!;
-    const regionSlidersContentElement: HTMLElement = document.querySelector(
-      ".region-sliders-content"
-    )!;
-    const modalCloseButtonElement: HTMLButtonElement =
-      document.querySelector(".modal-close")!;
-
-    const islandElement = document.querySelector(
-      ".island:not(.zoomed-in-clone)"
-    ) as HTMLElement;
-    const islandZoomedInCloneElement = document.querySelector(
-      ".island.zoomed-in-clone"
-    ) as HTMLElement;
-    const tilesElement = document.querySelector(".tiles") as HTMLElement;
 
     const infoElement = document.getElementById("info") as HTMLElement;
 
@@ -125,7 +106,7 @@ export const FrontPage = ({
     /*
      * Make tiles element to be square
      */
-    processTilesDimensions();
+    processTilesWrapperDimensions();
 
     /*
      * Set sliders-inner height and position (to enable scrolling)
@@ -134,94 +115,42 @@ export const FrontPage = ({
 
     // Resize regions on mouse moves
     const handleMouseEnterRegionSliders = () => {
-      islandElement.style.width = "50%";
+      islandRef.current!.style.width = "50%";
       regionSlidersRef.current!.style.width = "50%";
     };
     const handleMouseLeaveRegionSliders = () => {
-      islandElement.style.width = "";
+      islandRef.current!.style.width = "";
       regionSlidersRef.current!.style.width = "";
     };
 
     // Expand slider region on hover on small desktop sizes
-    if (width >= 1024 && width < 1360) {
-      regionSlidersRef.current!.addEventListener(
+    if (
+      regionSlidersRef?.current &&
+      islandRef.current &&
+      width >= 1024 &&
+      width < 1360
+    ) {
+      regionSlidersRef.current.addEventListener(
         "mouseenter",
         handleMouseEnterRegionSliders
       );
-      regionSlidersRef.current!.addEventListener(
+      regionSlidersRef.current.addEventListener(
         "mouseleave",
         handleMouseLeaveRegionSliders
       );
     }
 
-    const tileElements = document.querySelectorAll(".tile");
-    tileElements.forEach((el) => {
-      const tileElement = el as HTMLElement;
-
-      tileElement.addEventListener("click", (e) => {
-        //
-        const selectedTileElement = e.currentTarget as HTMLElement;
-        if (selectedTileElement.classList.contains("zoomed-in")) return;
-
-        document.body.classList.remove("mobile-menu-open");
-        document.body.classList.add("tile-selected");
-
-        // Get selected theme
-        const activeTheme: string =
-          selectedTileElement.getAttribute("data-theme")!;
-        // Mark selected theme tiles
-        tileElements.forEach((el) => {
-          const tileElement = el as HTMLElement;
-          tileElement.classList.add("zoomed-in");
-          if (tileElement.getAttribute("data-theme") === activeTheme) {
-            tileElement.classList.add("active-theme");
-          } else {
-            tileElement.classList.add("inactive-theme");
-          }
-        });
-
-        // Calculate zoom-in positions from already zoomed-in clone island
-        const tileId = selectedTileElement.getAttribute("data-tile-id");
-        const zoomedInTileElement = islandZoomedInCloneElement.querySelector(
-          `[data-tile-id="${tileId}"]`
-        )!;
-        const zoomedInTileRect = zoomedInTileElement.getBoundingClientRect();
-
-        const leftOffset =
-          width / 2 - zoomedInTileRect.left - zoomedInTileRect.width / 2;
-        const topOffset =
-          height / 2 - zoomedInTileRect.top - zoomedInTileRect.height / 2;
-
-        tilesRef.current!.style.left = `${leftOffset}px`;
-        tilesRef.current!.style.top = `${topOffset}px`;
-        tilesRef.current!.style.scale = "1.4";
-      });
-    });
-
-    // Handle Modal content Close
-    modalCloseButtonElement.addEventListener("click", () => {
-      document.body.classList.remove("tile-selected");
-      tileElements.forEach((el) => {
-        const tileElement = el as HTMLElement;
-        tileElement.classList.remove("zoomed-in");
-        tileElement.classList.remove("active-theme");
-        tileElement.classList.remove("inactive-theme");
-
-        tilesRef.current!.style.left = ``;
-        tilesRef.current!.style.top = ``;
-        tilesRef.current!.style.scale = "";
-      });
-    });
-
     return () => {
-      regionSlidersRef.current!.removeEventListener(
-        "mouseenter",
-        handleMouseEnterRegionSliders
-      );
-      regionSlidersRef.current!.removeEventListener(
-        "mouseleave",
-        handleMouseLeaveRegionSliders
-      );
+      if (regionSlidersRef?.current) {
+        regionSlidersRef.current.removeEventListener(
+          "mouseenter",
+          handleMouseEnterRegionSliders
+        );
+        regionSlidersRef.current.removeEventListener(
+          "mouseleave",
+          handleMouseLeaveRegionSliders
+        );
+      }
     };
   }, [width, height]);
 
@@ -229,11 +158,12 @@ export const FrontPage = ({
     <main className="front-page-wrapper">
       <div id="region-island" className="region-island">
         <div className="island" ref={islandRef}>
-          <div className="tiles" ref={tilesRef}>
-            {tileData.map((tile) => {
+          <div className="tiles-wrapper" ref={tilesWrapperRef}>
+            {tilesData.map((tile, index) => {
               return (
                 <Tile
                   key={tile.id}
+                  index={index}
                   tileData={tile}
                   currentScenario={currentScenario}
                   scenariosData={scenariosData}
@@ -241,6 +171,9 @@ export const FrontPage = ({
                   themesData={themesData}
                   currentTheme={currentTheme}
                   setCurrentTheme={setCurrentTheme}
+                  tileRefs={tileRefs}
+                  tileCloneRefs={tileCloneRefs}
+                  tilesWrapperRef={tilesWrapperRef}
                 />
               );
             })}
@@ -267,15 +200,17 @@ export const FrontPage = ({
 
         {/* We need zoomed in island clone to calculate the zoom-in animation position */}
         <div className="island zoomed-in-clone" ref={islandCloneRef}>
-          <div className="tiles" ref={tilesCloneRef}>
-            {tileData.map((tile) => {
+          <div className="tiles-wrapper" ref={tilesWrapperCloneRef}>
+            {tilesData.map((tile, index) => {
               return (
                 <Tile
                   key={tile.id}
+                  index={index}
                   tileData={tile}
                   currentScenario={currentScenario}
                   scenariosData={scenariosData}
                   onlyWrapper={true}
+                  tileRefs={tileCloneRefs}
                 />
               );
             })}
@@ -297,7 +232,7 @@ export const FrontPage = ({
               } else {
                 document.body.classList.add("mobile-sliders-open");
               }
-              processTilesDimensions();
+              processTilesWrapperDimensions();
             }}
           >
             <span>Choose a future</span>
@@ -334,33 +269,11 @@ export const FrontPage = ({
         </div>
       </div>
 
-      <div className="modal-scenario-theme">
-        <button className="modal-close">
-          <IconClose />
-        </button>
-        <div className="mst-title-wrapper">
-          <strong>{currentScenario.name}</strong> | {currentTheme?.name}
-        </div>
-        <div className="mst-content-wrapper">
-          <div>
-            {currentScenarioThemeContent?.text && (
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: currentScenarioThemeContent?.text,
-                }}
-              ></p>
-            )}
-          </div>
-          {currentScenarioThemeContent?.image ? (
-            <div className="image-wrapper">
-              <img
-                src={`/content/${currentScenarioThemeContent.image}`}
-                alt=""
-              />
-            </div>
-          ) : null}
-        </div>
-      </div>
+      <ModalScenarioTheme
+        currentScenarioThemeContent={currentScenarioThemeContent}
+        tilesWrapperRef={tilesWrapperRef}
+        tileRefs={tileRefs}
+      />
 
       <div id="info"></div>
     </main>

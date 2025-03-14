@@ -22,6 +22,15 @@ export type ThemesDataType = Record<string, ThemeType>;
 export type ScenarioThemeContent = {
   scenario_id: string;
   theme_id: string;
+  top_title?: string;
+  top_subtitle?: string;
+  title?: string;
   text?: string;
   image?: string;
+};
+
+export type TileDataType = {
+  id: string;
+  theme: string;
+  [key: string]: string;
 };

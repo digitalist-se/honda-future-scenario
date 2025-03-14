@@ -1,5 +1,5 @@
 import { Header } from "@/ui/templates/Layout/Header/Header";
-import { FrontPage } from "@/ui/templates/FrontPage";
+import { FutureScenariosPage } from "@/ui/templates/FutureScenariosPage";
 import {
   SlidersDataType,
   SliderType,
@@ -7,6 +7,7 @@ import {
   ThemesDataType,
   ThemeType,
   ScenarioThemeContent,
+  TileDataType,
 } from "@/lib/types";
 import { getDataFromCSV } from "@/lib/utils";
 
@@ -47,7 +48,7 @@ export default async function Page({
   //
   // Tile Themes
   //
-  const tileData = getDataFromCSV("tiles.csv") as any;
+  const tilesData = getDataFromCSV("tiles.csv") as TileDataType[];
 
   //
   // Scenario Theme Content
@@ -58,10 +59,10 @@ export default async function Page({
   return (
     <>
       <Header lang={lang} currentPage="front" />
-      <FrontPage
+      <FutureScenariosPage
         scenariosData={scenariosDataRaw}
         slidersData={slidersData}
-        tileData={tileData}
+        tilesData={tilesData}
         themesData={themesData}
         scenarioThemeContentData={scenarioThemeContentData}
       />
