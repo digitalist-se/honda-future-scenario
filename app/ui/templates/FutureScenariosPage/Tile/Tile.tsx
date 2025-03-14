@@ -98,7 +98,7 @@ export const Tile = ({
             return (
               <Image
                 key={`tile-${i}`}
-                src={`/tiles/${tileData[scenario.id]}`}
+                src={`/tiles/${scenario.id}/${tileData[scenario.id]}`}
                 alt={tileData.theme}
                 className={
                   currentScenario.id === scenario.id
