@@ -1,5 +1,3 @@
-import { Header } from "@/ui/templates/Layout/Header/Header";
-import { FutureScenariosPage } from "@/ui/templates/FutureScenariosPage";
 import {
   SlidersDataType,
   SliderType,
@@ -8,8 +6,10 @@ import {
   ThemeType,
   ScenarioThemeContent,
   TileDataType,
+  TileImageType,
 } from "@/lib/types";
 import { getDataFromCSV } from "@/lib/utils";
+import { AppTemplate } from "@/ui/templates/AppTemplate";
 
 export default async function Page({
   params,
@@ -21,7 +21,7 @@ export default async function Page({
   //
   // Scenarios data
   //
-  const scenariosDataRaw = getDataFromCSV("scenarios.csv") as ScenarioType[];
+  const scenariosData = getDataFromCSV("scenarios.csv") as ScenarioType[];
 
   //
   // Sliders data
@@ -49,6 +49,19 @@ export default async function Page({
   // Tile Themes
   //
   const tilesData = getDataFromCSV("tiles.csv") as TileDataType[];
+  const tileImages: TileImageType[] = [];
+  for (const tileData of tilesData) {
+    for (const scenarioData of scenariosData) {
+      const image_name: string = tileData[scenarioData.id];
+
+      const newTileImage = {
+        tile_id: tileData.id,
+        scenario_id: scenarioData.id,
+        image_url: `/tiles/${scenarioData.id}/${image_name}`,
+      };
+      tileImages.push(newTileImage);
+    }
+  }
 
   //
   // Scenario Theme Content
@@ -57,15 +70,14 @@ export default async function Page({
   ) as ScenarioThemeContent[];
 
   return (
-    <>
-      <Header lang={lang} currentPage="front" />
-      <FutureScenariosPage
-        scenariosData={scenariosDataRaw}
-        slidersData={slidersData}
-        tilesData={tilesData}
-        themesData={themesData}
-        scenarioThemeContentData={scenarioThemeContentData}
-      />
-    </>
+    <AppTemplate
+      lang={lang}
+      scenariosData={scenariosData}
+      slidersData={slidersData}
+      tilesData={tilesData}
+      tileImages={tileImages}
+      themesData={themesData}
+      scenarioThemeContentData={scenarioThemeContentData}
+    />
   );
 }

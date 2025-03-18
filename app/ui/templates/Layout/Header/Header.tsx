@@ -9,9 +9,10 @@ import { useWindowSize } from "@/lib/useWindowSize";
 interface HeaderProps {
   lang: string;
   currentPage: string;
+  setCurrentPage: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const Header = ({ lang, currentPage }: HeaderProps) => {
+export const Header = ({ lang, currentPage, setCurrentPage }: HeaderProps) => {
   const { width } = useWindowSize();
 
   useEffect(() => {
@@ -66,14 +67,16 @@ export const Header = ({ lang, currentPage }: HeaderProps) => {
                 (currentPage === "front" ? " is-active" : "")
               }
             >
-              <Link
+              <a
                 href={`/${lang}`}
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   document.body.classList.remove("mobile-menu-open");
+                  setCurrentPage("front");
                 }}
               >
                 FUTEUR 35
-              </Link>
+              </a>
             </li>
 
             <li
@@ -81,14 +84,16 @@ export const Header = ({ lang, currentPage }: HeaderProps) => {
                 "menu-item" + (currentPage === "about" ? " is-active" : "")
               }
             >
-              <Link
+              <a
                 href={`/${lang}/about`}
-                onClick={() => {
+                onClick={(e) => {
+                  e.preventDefault();
                   document.body.classList.remove("mobile-menu-open");
+                  setCurrentPage("about");
                 }}
               >
                 About this project
-              </Link>
+              </a>
             </li>
 
             <li className="menu-item-language">

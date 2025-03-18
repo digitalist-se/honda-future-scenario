@@ -1,6 +1,7 @@
 .about-page-wrapper {
   padding: 70px 20px;
   font-size: 18px;
+  display: none;
   @media (width >= 768px) {
     padding: 90px 40px;
   }
@@ -10,6 +11,10 @@
   }
   @media (width >= 1280px) {
     padding: 130px 40px;
+  }
+
+  &.is-active-page {
+    display: block;
   }
 
   .container {

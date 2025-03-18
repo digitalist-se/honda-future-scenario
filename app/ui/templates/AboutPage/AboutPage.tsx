@@ -1,9 +1,18 @@
 import "./AboutPage.css";
 import { ContactForm } from "./ContactForm";
 
-export const AboutPage = () => {
+interface AboutPageProps {
+  isActivePage: boolean;
+}
+
+export const AboutPage = ({ isActivePage }: AboutPageProps) => {
   return (
-    <main className="about-page-wrapper">
+    <main
+      className={[
+        "about-page-wrapper",
+        isActivePage ? "is-active-page" : null,
+      ].join(" ")}
+    >
       <div className="container">
         <div className="island island-1">
           <img src="/about-island-1.svg" alt="Floating island 1" />

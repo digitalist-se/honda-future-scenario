@@ -23,6 +23,10 @@
     }
   }
 
+  &.zoomed-in {
+    cursor: default;
+  }
+
   &:not(.zoomed-in):hover,
   &:not(.zoomed-in):focus {
     background: var(--color-lightblue);

@@ -20,6 +20,7 @@ interface TileProps {
   tileRefs: React.RefObject<(HTMLButtonElement | null)[]>;
   tileCloneRefs?: React.RefObject<(HTMLButtonElement | null)[]>;
   tilesWrapperRef?: React.RefObject<HTMLDivElement | null>;
+  updateLoadedCount?: (loadedCount: number) => void;
 }
 
 export const Tile = ({
@@ -34,6 +35,7 @@ export const Tile = ({
   tileRefs,
   tileCloneRefs,
   tilesWrapperRef,
+  updateLoadedCount,
 }: TileProps) => {
   const { width, height } = useWindowSize();
 
@@ -95,7 +97,6 @@ export const Tile = ({
     >
       {!onlyWrapper
         ? scenariosData.map((scenario, i) => {
-            return null;
             return (
               <Image
                 key={`tile-${i}`}
@@ -108,6 +109,26 @@ export const Tile = ({
                 }
                 width={300}
                 height={300}
+                loading="lazy"
+                onLoad={() => {
+                  let imagesLoadedCount: number = 0;
+                  const imagesLoadedCountAttrib: string | null = document
+                    .querySelector(".loading-scenarios")!
+                    .getAttribute("data-images-loaded-count");
+                  if (imagesLoadedCountAttrib) {
+                    imagesLoadedCount = parseInt(imagesLoadedCountAttrib);
+                  }
+                  imagesLoadedCount++;
+
+                  document
+                    .querySelector(".loading-scenarios")!
+                    .setAttribute(
+                      "data-images-loaded-count",
+                      `${imagesLoadedCount}`
+                    );
+
+                  updateLoadedCount!(imagesLoadedCount);
+                }}
               />
             );
           })

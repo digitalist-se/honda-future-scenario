@@ -117,7 +117,7 @@ textarea {
   visibility: hidden !important;
 
   .show-recaptcha-badge & {
-    visibility: visible !important;
+    /* visibility: visible !important; */
   }
 }
 

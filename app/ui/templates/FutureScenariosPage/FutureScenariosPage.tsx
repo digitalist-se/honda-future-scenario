@@ -17,19 +17,24 @@ import { IconArrowDown } from "@/ui/atoms/icons";
 import { useWindowSize } from "@/lib/useWindowSize";
 import { ModalScenarioTheme } from "./ModalScenarioTheme";
 import { MegaLoadingButton } from "@/ui/organisms/MegaLoadingButton";
+import Image from "next/image";
 
 interface FutureScenariosPageProps {
+  isActivePage: boolean;
   slidersData: SlidersDataType;
   scenariosData: ScenarioType[];
   tilesData: TileDataType[];
+  tileImages: TileImageType[];
   themesData: ThemesDataType;
   scenarioThemeContentData: ScenarioThemeContent[];
 }
 
 export const FutureScenariosPage = ({
+  isActivePage,
   scenariosData,
   slidersData,
   tilesData,
+  tileImages,
   themesData,
   scenarioThemeContentData,
 }: FutureScenariosPageProps) => {
@@ -45,13 +50,12 @@ export const FutureScenariosPage = ({
   const slidersInnerRef = useRef<HTMLDivElement | null>(null);
   const slidersContentRef = useRef<HTMLDivElement | null>(null);
 
-  const [tileImagesLoading, setTileImagesLoading] = useState<boolean>(true);
-  const [showLoadingScenarios, setShowLoadingScenarios] =
-    useState<boolean>(true);
-  const [imagesLoadingProgress, setImagesLoadingProgress] = useState<number>(0);
-  const [tileImages, setTileImages] = useState<TileImageType[]>([]);
-
   const { width, height } = useWindowSize();
+
+  const [showFutureScenarios, setShowFutureScenarios] =
+    useState<boolean>(false);
+  const [loadingProgress, setLoadingProgress] = useState<number>(0);
+  const [tileImagesLoading, setTileImagesLoading] = useState<boolean>(true);
 
   const [currentScenario, setCurrentScenario] = useState(scenariosData[0]);
   const [currentTheme, setCurrentTheme] = useState<ThemeType | undefined>();
@@ -162,82 +166,47 @@ export const FutureScenariosPage = ({
     };
   }, [width, height]);
 
+  const [renderTileIsland, setRenderTileIsland] = useState(false);
   useEffect(() => {
-    if (showLoadingScenarios) {
-      document.body.classList.add("show-loading-scenarios");
+    setRenderTileIsland(true);
 
-      // Preload Tile images
-      const newTileImages: TileImageType[] = [];
-      for (const tileData of tilesData) {
-        for (const scenarioData of scenariosData) {
-          const image_name: string = tileData[scenarioData.id];
-
-          const newTileImage = {
-            tile_id: tileData.id,
-            scenario_id: scenarioData.id,
-            image_url: `/tiles/${scenarioData.id}/${image_name}`,
-            image: undefined,
-          };
-          newTileImages.push(newTileImage);
-        }
-      }
-
-      console.log(newTileImages);
-
-      // const imageUrls: string[] = ["/test.png"];
-
-      // const images: HTMLImageElement[] = [];
-
-      // Preload images
-      let loadedCount = 0;
-      newTileImages.forEach((newTileImage, index) => {
-        newTileImages[index].image = new Image();
-        newTileImages[index].image.src = newTileImage.image_url;
-        newTileImages[index].image.onload = (e) => {
-          loadedCount++;
-          const percentLoaded = Math.round(
-            (loadedCount / newTileImages.length) * 100
-          );
-          setImagesLoadingProgress(percentLoaded);
-          console.log("perc", percentLoaded);
-          console.log(`${newTileImage.image_url} loaded`, e);
-          if (loadedCount === newTileImages.length) {
-            console.log("All images preloaded");
-
-            setTileImagesLoading(false);
-            setTileImages(newTileImages);
-          }
-        };
-        // images[index] = img;
-      });
-
-      // Optional: Execute a callback when all images are loaded
-      // let loadedCount = 0;
-      // images.forEach((img) => {
-      //   img.onload = () => {
-      //     loadedCount++;
-      //     if (loadedCount === images.length) {
-      //       console.log("All images preloaded", img);
-      //     }
-      //   };
-      //   img.onerror = (e) => {
-      //     console.log("error", e);
-      //   };
-      // });
+    if (showFutureScenarios) {
+      document.body.classList.add("show-future-scenarios");
     } else {
-      document.body.classList.remove("show-loading-scenarios");
+      document.body.classList.remove("show-future-scenarios");
     }
 
     return () => {
-      document.body.classList.remove("show-loading-scenarios");
+      document.body.classList.remove("show-future-scenarios");
     };
-  }, [showLoadingScenarios]);
+  }, [showFutureScenarios]);
+
+  const updateLoadedCount = (loadedCount: number) => {
+    const percentLoaded = Math.round((loadedCount / tileImages.length) * 100);
+    setLoadingProgress(percentLoaded);
+
+    if (loadedCount === tileImages.length) {
+      setTileImagesLoading(false);
+    }
+  };
+
   return (
-    <main className="front-page-wrapper">
+    <main
+      className={[
+        "front-page-wrapper",
+        isActivePage ? "is-active-page" : null,
+      ].join(" ")}
+    >
       <div className="loading-scenarios">
         <div className="loading-scenarios-inner">
           <div className="loading-island-wrapper">
-            <img src="/loading-island.svg" alt="" />
+            <Image
+              src="/loading-island.svg"
+              width={686}
+              height={837}
+              alt=""
+              priority
+            />
           </div>
 
           <div className="loading-scenarios-info">
@@ -254,9 +223,12 @@ export const FutureScenariosPage = ({
               <div>
                 <MegaLoadingButton
                   isLoading={tileImagesLoading}
-                  loadingPercent={imagesLoadingProgress}
+                  loadingPercent={loadingProgress}
                   isLoadingText="Loading futures..."
                   loadingCompleteText="Start exploring!"
+                  handleClick={() => {
+                    setShowFutureScenarios(true);
+                  }}
                 />
               </div>
             </div>
@@ -267,24 +239,27 @@ export const FutureScenariosPage = ({
       <div id="region-island" className="region-island">
         <div className="island" ref={islandRef}>
           <div className="tiles-wrapper" ref={tilesWrapperRef}>
-            {tilesData.map((tile, index) => {
-              return (
-                <Tile
-                  key={tile.id}
-                  index={index}
-                  tileData={tile}
-                  currentScenario={currentScenario}
-                  scenariosData={scenariosData}
-                  onlyWrapper={false}
-                  themesData={themesData}
-                  currentTheme={currentTheme}
-                  setCurrentTheme={setCurrentTheme}
-                  tileRefs={tileRefs}
-                  tileCloneRefs={tileCloneRefs}
-                  tilesWrapperRef={tilesWrapperRef}
-                />
-              );
-            })}
+            {renderTileIsland
+              ? tilesData.map((tile, index) => {
+                  return (
+                    <Tile
+                      key={tile.id}
+                      index={index}
+                      tileData={tile}
+                      currentScenario={currentScenario}
+                      scenariosData={scenariosData}
+                      onlyWrapper={false}
+                      themesData={themesData}
+                      currentTheme={currentTheme}
+                      setCurrentTheme={setCurrentTheme}
+                      tileRefs={tileRefs}
+                      tileCloneRefs={tileCloneRefs}
+                      tilesWrapperRef={tilesWrapperRef}
+                      updateLoadedCount={updateLoadedCount}
+                    />
+                  );
+                })
+              : null}
 
             <div className="island-base-left" />
             <div className="island-base-right" />
