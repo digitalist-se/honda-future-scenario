@@ -34,3 +34,10 @@ export type TileDataType = {
   theme: string;
   [key: string]: string;
 };
+
+export type TileImageType = {
+  tile_id: string;
+  scenario_id: string;
+  image_url: string;
+  image?: HTMLImageElement;
+};

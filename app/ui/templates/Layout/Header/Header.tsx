@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import "./Header.css";
 import Link from "next/link";
 import { IconArrowRight, IconMenu, IconClose } from "@/ui/atoms/icons";
@@ -12,7 +12,6 @@ interface HeaderProps {
 }
 
 export const Header = ({ lang, currentPage }: HeaderProps) => {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const { width } = useWindowSize();
 
   useEffect(() => {
@@ -46,10 +45,7 @@ export const Header = ({ lang, currentPage }: HeaderProps) => {
     <>
       <header className="page-header">
         <button
-          className={[
-            "button-menu-togggle",
-            mobileMenuOpen ? "mobile-menu-open" : "",
-          ].join(" ")}
+          className="button-menu-togggle"
           onClick={() => {
             if (document.body.classList.contains("mobile-menu-open")) {
               document.body.classList.remove("mobile-menu-open");
@@ -62,12 +58,7 @@ export const Header = ({ lang, currentPage }: HeaderProps) => {
           <IconClose className="icon-close" />
         </button>
 
-        <div
-          className={[
-            "main-menu-wrapper",
-            mobileMenuOpen ? "mobile-menu-open" : "",
-          ].join(" ")}
-        >
+        <div className="main-menu-wrapper">
           <ul className="main-menu">
             <li
               className={
@@ -78,7 +69,7 @@ export const Header = ({ lang, currentPage }: HeaderProps) => {
               <Link
                 href={`/${lang}`}
                 onClick={() => {
-                  setMobileMenuOpen(false);
+                  document.body.classList.remove("mobile-menu-open");
                 }}
               >
                 FUTEUR 35
@@ -93,7 +84,7 @@ export const Header = ({ lang, currentPage }: HeaderProps) => {
               <Link
                 href={`/${lang}/about`}
                 onClick={() => {
-                  setMobileMenuOpen(false);
+                  document.body.classList.remove("mobile-menu-open");
                 }}
               >
                 About this project

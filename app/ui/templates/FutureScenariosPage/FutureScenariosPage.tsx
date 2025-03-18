@@ -10,11 +10,13 @@ import {
   ThemesDataType,
   ThemeType,
   TileDataType,
+  TileImageType,
 } from "@/lib/types";
 import { Tile } from "./Tile";
 import { IconArrowDown } from "@/ui/atoms/icons";
 import { useWindowSize } from "@/lib/useWindowSize";
 import { ModalScenarioTheme } from "./ModalScenarioTheme";
+import { MegaLoadingButton } from "@/ui/organisms/MegaLoadingButton";
 
 interface FutureScenariosPageProps {
   slidersData: SlidersDataType;
@@ -42,6 +44,12 @@ export const FutureScenariosPage = ({
   const slidersWrapperRef = useRef<HTMLDivElement | null>(null);
   const slidersInnerRef = useRef<HTMLDivElement | null>(null);
   const slidersContentRef = useRef<HTMLDivElement | null>(null);
+
+  const [tileImagesLoading, setTileImagesLoading] = useState<boolean>(true);
+  const [showLoadingScenarios, setShowLoadingScenarios] =
+    useState<boolean>(true);
+  const [imagesLoadingProgress, setImagesLoadingProgress] = useState<number>(0);
+  const [tileImages, setTileImages] = useState<TileImageType[]>([]);
 
   const { width, height } = useWindowSize();
 
@@ -154,8 +162,108 @@ export const FutureScenariosPage = ({
     };
   }, [width, height]);
 
+  useEffect(() => {
+    if (showLoadingScenarios) {
+      document.body.classList.add("show-loading-scenarios");
+
+      // Preload Tile images
+      const newTileImages: TileImageType[] = [];
+      for (const tileData of tilesData) {
+        for (const scenarioData of scenariosData) {
+          const image_name: string = tileData[scenarioData.id];
+
+          const newTileImage = {
+            tile_id: tileData.id,
+            scenario_id: scenarioData.id,
+            image_url: `/tiles/${scenarioData.id}/${image_name}`,
+            image: undefined,
+          };
+          newTileImages.push(newTileImage);
+        }
+      }
+
+      console.log(newTileImages);
+
+      // const imageUrls: string[] = ["/test.png"];
+
+      // const images: HTMLImageElement[] = [];
+
+      // Preload images
+      let loadedCount = 0;
+      newTileImages.forEach((newTileImage, index) => {
+        newTileImages[index].image = new Image();
+        newTileImages[index].image.src = newTileImage.image_url;
+        newTileImages[index].image.onload = (e) => {
+          loadedCount++;
+          const percentLoaded = Math.round(
+            (loadedCount / newTileImages.length) * 100
+          );
+          setImagesLoadingProgress(percentLoaded);
+          console.log("perc", percentLoaded);
+          console.log(`${newTileImage.image_url} loaded`, e);
+          if (loadedCount === newTileImages.length) {
+            console.log("All images preloaded");
+
+            setTileImagesLoading(false);
+            setTileImages(newTileImages);
+          }
+        };
+        // images[index] = img;
+      });
+
+      // Optional: Execute a callback when all images are loaded
+      // let loadedCount = 0;
+      // images.forEach((img) => {
+      //   img.onload = () => {
+      //     loadedCount++;
+      //     if (loadedCount === images.length) {
+      //       console.log("All images preloaded", img);
+      //     }
+      //   };
+      //   img.onerror = (e) => {
+      //     console.log("error", e);
+      //   };
+      // });
+    } else {
+      document.body.classList.remove("show-loading-scenarios");
+    }
+
+    return () => {
+      document.body.classList.remove("show-loading-scenarios");
+    };
+  }, [showLoadingScenarios]);
   return (
     <main className="front-page-wrapper">
+      <div className="loading-scenarios">
+        <div className="loading-scenarios-inner">
+          <div className="loading-island-wrapper">
+            <img src="/loading-island.svg" alt="" />
+          </div>
+
+          <div className="loading-scenarios-info">
+            <div className="loading-scenarios-info-inner">
+              <div>
+                <p>
+                  What might the futures of Europe look like in 2035,
+                  considering political, social, legal, technological, economic
+                  trends and perspectives? FUTEUR 35 is an interactive
+                  exploration of extensive research efforts conducted throughout
+                  2024.
+                </p>
+              </div>
+              <div>
+                <MegaLoadingButton
+                  isLoading={tileImagesLoading}
+                  loadingPercent={imagesLoadingProgress}
+                  isLoadingText="Loading futures..."
+                  loadingCompleteText="Start exploring!"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
       <div id="region-island" className="region-island">
         <div className="island" ref={islandRef}>
           <div className="tiles-wrapper" ref={tilesWrapperRef}>
@@ -274,8 +382,6 @@ export const FutureScenariosPage = ({
         tilesWrapperRef={tilesWrapperRef}
         tileRefs={tileRefs}
       />
-
-      <div id="info"></div>
     </main>
   );
 };

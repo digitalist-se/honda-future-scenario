@@ -1,0 +1,55 @@
+.mega-loading-button {
+  background: var(--color-blue);
+  font-weight: 600;
+  font-size: 18px;
+  text-align: center;
+  padding: 16px 30px;
+  position: relative;
+  transition: background-color 0.3s ease-in-out;
+  cursor: default;
+  width: 100%;
+  max-width: 320px;
+  @media (width >= 768px) {
+    font-size: 20px;
+  }
+
+  &:not([disabled]) {
+    cursor: pointer;
+
+    &:hover {
+      background-color: var(--color-light-red);
+
+      .loading {
+        height: 21px;
+        left: -18px;
+
+        .bar {
+          height: 21px;
+        }
+      }
+    }
+  }
+
+  .loading {
+    display: block;
+    height: 7px;
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    left: -6px;
+    transform: skewX(-60deg);
+    background-color: var(--color-gray-gamma);
+    transition:
+      height 0.3s ease-in-out,
+      left 0.3s ease-in-out;
+
+    .bar {
+      display: block;
+      height: 7px;
+      background-color: var(--color-red);
+      transition:
+        width 0.1s,
+        height 0.3s ease-in-out;
+    }
+  }
+}

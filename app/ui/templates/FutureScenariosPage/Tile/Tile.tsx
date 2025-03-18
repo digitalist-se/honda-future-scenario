@@ -95,6 +95,7 @@ export const Tile = ({
     >
       {!onlyWrapper
         ? scenariosData.map((scenario, i) => {
+            return null;
             return (
               <Image
                 key={`tile-${i}`}
