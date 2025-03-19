@@ -38,6 +38,8 @@ export const FutureScenariosPage = ({
   themesData,
   scenarioThemeContentData,
 }: FutureScenariosPageProps) => {
+  const loadingScenariosRef = useRef<HTMLDivElement | null>(null);
+  const regionIslandRef = useRef<HTMLDivElement | null>(null);
   const islandRef = useRef<HTMLDivElement | null>(null);
   const islandCloneRef = useRef<HTMLDivElement | null>(null);
   const tilesWrapperRef = useRef<HTMLDivElement | null>(null);
@@ -57,6 +59,7 @@ export const FutureScenariosPage = ({
     useState<boolean>(false);
   const [loadingProgress, setLoadingProgress] = useState<number>(0);
   const [tileImagesLoading, setTileImagesLoading] = useState<boolean>(true);
+  const [renderTileIsland, setRenderTileIsland] = useState(false);
 
   const [currentScenario, setCurrentScenario] = useState(scenariosData[0]);
   const [currentTheme, setCurrentTheme] = useState<ThemeType | undefined>();
@@ -95,6 +98,9 @@ export const FutureScenariosPage = ({
 
   useEffect(() => {
     if (!width || !height || !islandRef?.current) return;
+
+    // Start rendering tile images only when dom loaded
+    setRenderTileIsland(true);
 
     const frontPageWrapperElement: HTMLElement | null = document.querySelector(
       ".front-page-wrapper"
@@ -167,18 +173,6 @@ export const FutureScenariosPage = ({
     };
   }, [width, height]);
 
-  const [renderTileIsland, setRenderTileIsland] = useState(false);
-  useEffect(() => {
-    // Start rendering tile images only when dom loaded
-    setRenderTileIsland(true);
-
-    if (showFutureScenarios) {
-      document.body.classList.add("show-future-scenarios");
-    } else {
-      document.body.classList.remove("show-future-scenarios");
-    }
-  }, [showFutureScenarios]);
-
   const updateLoadedCount = (loadedCount: number) => {
     const percentLoaded = Math.round((loadedCount / tileImages.length) * 100);
     setLoadingProgress(percentLoaded);
@@ -195,7 +189,7 @@ export const FutureScenariosPage = ({
         isActivePage ? "is-active-page" : null,
       ].join(" ")}
     >
-      <div className="loading-scenarios">
+      <div className="loading-scenarios" ref={loadingScenariosRef}>
         <div className="loading-scenarios-inner">
           <div className="loading-island-wrapper">
             <Image
@@ -225,7 +219,20 @@ export const FutureScenariosPage = ({
                   isLoadingText="Loading futures..."
                   loadingCompleteText="Start exploring!"
                   handleClick={() => {
-                    setShowFutureScenarios(true);
+                    loadingScenariosRef.current!.classList.add("animate-out");
+                    regionIslandRef.current!.classList.add("animate-in");
+                    regionSlidersRef.current!.classList.add("animate-in");
+
+                    setTimeout(() => {
+                      document.body.classList.add("show-future-scenarios");
+                      loadingScenariosRef.current!.classList.remove(
+                        "animate-out"
+                      );
+                      regionIslandRef.current!.classList.remove("animate-in");
+                      regionSlidersRef.current!.classList.remove("animate-in");
+                    }, 2000);
+
+                    // setShowFutureScenarios(true);
                   }}
                 />
               </div>
@@ -234,7 +241,7 @@ export const FutureScenariosPage = ({
         </div>
       </div>
 
-      <div id="region-island" className="region-island">
+      <div id="region-island" className="region-island" ref={regionIslandRef}>
         <div className="island" ref={islandRef}>
           <div className="tiles-wrapper" ref={tilesWrapperRef}>
             {renderTileIsland
