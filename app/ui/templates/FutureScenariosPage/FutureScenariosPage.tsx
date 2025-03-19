@@ -20,6 +20,7 @@ import { MegaLoadingButton } from "@/ui/organisms/MegaLoadingButton";
 import Image from "next/image";
 
 interface FutureScenariosPageProps {
+  lang: string;
   isActivePage: boolean;
   slidersData: SlidersDataType;
   scenariosData: ScenarioType[];
@@ -27,9 +28,11 @@ interface FutureScenariosPageProps {
   tileImages: TileImageType[];
   themesData: ThemesDataType;
   scenarioThemeContentData: ScenarioThemeContent[];
+  navigateToPage: (page: string) => void;
 }
 
 export const FutureScenariosPage = ({
+  lang,
   isActivePage,
   scenariosData,
   slidersData,
@@ -37,6 +40,7 @@ export const FutureScenariosPage = ({
   tileImages,
   themesData,
   scenarioThemeContentData,
+  navigateToPage,
 }: FutureScenariosPageProps) => {
   const loadingScenariosRef = useRef<HTMLDivElement | null>(null);
   const regionIslandRef = useRef<HTMLDivElement | null>(null);
@@ -51,6 +55,7 @@ export const FutureScenariosPage = ({
   const slidersWrapperRef = useRef<HTMLDivElement | null>(null);
   const slidersInnerRef = useRef<HTMLDivElement | null>(null);
   const slidersContentRef = useRef<HTMLDivElement | null>(null);
+  const slidersInfoRef = useRef<HTMLDivElement | null>(null);
   const modalScenarioThemeRef = useRef<HTMLDivElement | null>(null);
 
   const { width, height } = useWindowSize();
@@ -130,7 +135,12 @@ export const FutureScenariosPage = ({
     /*
      * Set sliders-inner height and position (to enable scrolling)
      */
-    slidersWrapperRef.current!.style.height = `${regionSlidersRef.current!.clientHeight - slidersTitleRef.current!.clientHeight}px`;
+    // if (width < 1024) {
+    //   slidersWrapperRef.current!.style.height = `${regionSlidersRef.current!.clientHeight - slidersTitleRef.current!.clientHeight}px`;
+    // } else {
+    //   slidersWrapperRef.current!.style.height = `${regionSlidersRef.current!.clientHeight - slidersTitleRef.current!.clientHeight - slidersInfoRef.current!.clientHeight}px `;
+    // }
+    slidersWrapperRef.current!.style.height = `${regionSlidersRef.current!.clientHeight - slidersTitleRef.current!.clientHeight - slidersInfoRef.current!.clientHeight}px `;
 
     // Resize regions on mouse moves
     const handleMouseEnterRegionSliders = () => {
@@ -354,6 +364,21 @@ export const FutureScenariosPage = ({
                 );
               })}
             </div>
+          </div>
+        </div>
+
+        <div className="sliders-info" ref={slidersInfoRef}>
+          <div className="sliders-info-content">
+            Do you want to know more about those sliders?{" "}
+            <a
+              href={`/${lang}/about`}
+              onClick={(e) => {
+                e.preventDefault();
+                navigateToPage("about");
+              }}
+            >
+              <strong>Find out here.</strong>
+            </a>
           </div>
         </div>
       </div>

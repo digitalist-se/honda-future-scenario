@@ -10,9 +10,15 @@ interface HeaderProps {
   lang: string;
   currentPage: string;
   setCurrentPage: React.Dispatch<React.SetStateAction<string>>;
+  navigateToPage: (page: string) => void;
 }
 
-export const Header = ({ lang, currentPage, setCurrentPage }: HeaderProps) => {
+export const Header = ({
+  lang,
+  currentPage,
+  setCurrentPage,
+  navigateToPage,
+}: HeaderProps) => {
   const { width } = useWindowSize();
 
   useEffect(() => {
@@ -71,20 +77,7 @@ export const Header = ({ lang, currentPage, setCurrentPage }: HeaderProps) => {
                 href={`/${lang}`}
                 onClick={(e) => {
                   e.preventDefault();
-                  if (currentPage !== "front") {
-                    document.body.classList.remove("mobile-menu-open");
-                    document.body.classList.remove("navigate-animate-in");
-                    document.body.classList.add("navigate-animate-out");
-
-                    setTimeout(() => {
-                      document.body.classList.remove("navigate-animate-out");
-                      setCurrentPage("front");
-
-                      setTimeout(() => {
-                        document.body.classList.add("navigate-animate-in");
-                      }, 50);
-                    }, 1000);
-                  }
+                  navigateToPage("front");
                 }}
               >
                 FUTEUR 35
@@ -100,20 +93,7 @@ export const Header = ({ lang, currentPage, setCurrentPage }: HeaderProps) => {
                 href={`/${lang}/about`}
                 onClick={(e) => {
                   e.preventDefault();
-                  if (currentPage !== "about") {
-                    document.body.classList.remove("mobile-menu-open");
-                    document.body.classList.remove("navigate-animate-in");
-                    document.body.classList.add("navigate-animate-out");
-
-                    setTimeout(() => {
-                      document.body.classList.remove("navigate-animate-out");
-                      setCurrentPage("about");
-
-                      setTimeout(() => {
-                        document.body.classList.add("navigate-animate-in");
-                      }, 50);
-                    }, 1000);
-                  }
+                  navigateToPage("about");
                 }}
               >
                 About this project

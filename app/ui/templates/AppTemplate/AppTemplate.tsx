@@ -38,15 +38,34 @@ export const AppTemplate = ({
     document.body.classList.add("navigate-animate-in");
   }, []);
 
+  const navigateToPage = (page: string) => {
+    if (currentPage !== page) {
+      document.body.classList.remove("mobile-menu-open");
+      document.body.classList.remove("navigate-animate-in");
+      document.body.classList.add("navigate-animate-out");
+
+      setTimeout(() => {
+        document.body.classList.remove("navigate-animate-out");
+        setCurrentPage(page);
+
+        setTimeout(() => {
+          document.body.classList.add("navigate-animate-in");
+        }, 50);
+      }, 1000);
+    }
+  };
+
   return (
     <>
       <Header
         lang={lang}
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
+        navigateToPage={navigateToPage}
       />
 
       <FutureScenariosPage
+        lang={lang}
         isActivePage={currentPage === "front"}
         scenariosData={scenariosData}
         slidersData={slidersData}
@@ -54,6 +73,7 @@ export const AppTemplate = ({
         tileImages={tileImages}
         themesData={themesData}
         scenarioThemeContentData={scenarioThemeContentData}
+        navigateToPage={navigateToPage}
       />
 
       <AboutPage isActivePage={currentPage === "about"} />
