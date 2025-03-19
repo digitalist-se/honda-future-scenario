@@ -10,6 +10,19 @@ import {
 } from "@/lib/types";
 import { getDataFromCSV } from "@/lib/utils";
 import { AppTemplate } from "@/ui/templates/AppTemplate";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Honda Future Scenarios",
+  description:
+    "FUTEUR 35 is an interactive exploration of extensive research efforts conducted throughout 2024.",
+  openGraph: {
+    title: "Honda Future Scenarios",
+    description:
+      "FUTEUR 35 is an interactive exploration of extensive research efforts conducted throughout 2024.",
+    images: "/og-image.jpg",
+  },
+};
 
 export default async function Page({
   params,

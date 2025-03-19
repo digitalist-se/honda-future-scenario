@@ -7,7 +7,7 @@ interface AboutPageProps {
 
 export const AboutPage = ({ isActivePage }: AboutPageProps) => {
   return (
-    <main
+    <div
       className={[
         "about-page-wrapper",
         isActivePage ? "is-active-page" : null,
@@ -51,6 +51,6 @@ export const AboutPage = ({ isActivePage }: AboutPageProps) => {
           <img src="/about-island-2.svg" alt="Floating island 1" />
         </div>
       </div>
-    </main>
+    </div>
   );
 };

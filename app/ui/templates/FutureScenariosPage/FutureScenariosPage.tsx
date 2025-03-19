@@ -189,7 +189,7 @@ export const FutureScenariosPage = ({
   };
 
   return (
-    <main
+    <div
       className={[
         "front-page-wrapper",
         isActivePage ? "is-active-page" : null,
@@ -357,6 +357,6 @@ export const FutureScenariosPage = ({
         tileRefs={tileRefs}
         modalScenarioThemeRef={modalScenarioThemeRef}
       />
-    </main>
+    </div>
   );
 };
