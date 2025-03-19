@@ -71,8 +71,20 @@ export const Header = ({ lang, currentPage, setCurrentPage }: HeaderProps) => {
                 href={`/${lang}`}
                 onClick={(e) => {
                   e.preventDefault();
-                  document.body.classList.remove("mobile-menu-open");
-                  setCurrentPage("front");
+                  if (currentPage !== "front") {
+                    document.body.classList.remove("mobile-menu-open");
+                    document.body.classList.remove("navigate-animate-in");
+                    document.body.classList.add("navigate-animate-out");
+
+                    setTimeout(() => {
+                      document.body.classList.remove("navigate-animate-out");
+                      setCurrentPage("front");
+
+                      setTimeout(() => {
+                        document.body.classList.add("navigate-animate-in");
+                      }, 50);
+                    }, 1000);
+                  }
                 }}
               >
                 FUTEUR 35
@@ -88,15 +100,27 @@ export const Header = ({ lang, currentPage, setCurrentPage }: HeaderProps) => {
                 href={`/${lang}/about`}
                 onClick={(e) => {
                   e.preventDefault();
-                  document.body.classList.remove("mobile-menu-open");
-                  setCurrentPage("about");
+                  if (currentPage !== "about") {
+                    document.body.classList.remove("mobile-menu-open");
+                    document.body.classList.remove("navigate-animate-in");
+                    document.body.classList.add("navigate-animate-out");
+
+                    setTimeout(() => {
+                      document.body.classList.remove("navigate-animate-out");
+                      setCurrentPage("about");
+
+                      setTimeout(() => {
+                        document.body.classList.add("navigate-animate-in");
+                      }, 50);
+                    }, 1000);
+                  }
                 }}
               >
                 About this project
               </a>
             </li>
 
-            <li className="menu-item-language">
+            {/* <li className="menu-item-language">
               <ul className={"lang-switcher"}>
                 <li className="is-active">
                   <span>{lang}</span>
@@ -111,7 +135,7 @@ export const Header = ({ lang, currentPage, setCurrentPage }: HeaderProps) => {
 
                 <IconArrowRight className="icon-arrow" />
               </ul>
-            </li>
+            </li> */}
           </ul>
         </div>
 

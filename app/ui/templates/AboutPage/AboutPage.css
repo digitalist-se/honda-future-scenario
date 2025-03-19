@@ -1,7 +1,9 @@
 .about-page-wrapper {
+  display: none;
+  opacity: 0;
+  transition: opacity 1s;
   padding: 70px 20px;
   font-size: 18px;
-  display: none;
   @media (width >= 768px) {
     padding: 90px 40px;
   }
@@ -15,6 +17,14 @@
 
   &.is-active-page {
     display: block;
+  }
+
+  .navigate-animate-out & {
+    opacity: 0;
+  }
+
+  .navigate-animate-in & {
+    opacity: 1;
   }
 
   .container {

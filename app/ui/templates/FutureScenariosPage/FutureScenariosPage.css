@@ -1,18 +1,21 @@
 .front-page-wrapper {
   display: none;
+  opacity: 0;
   padding: 0;
+  transition: opacity 1s;
   position: relative;
   overflow: hidden;
-  /*@media (width >= 1024px) {
-    padding: 0 60px;
-  }*/
-  /* transform: translateY(100%);
-  transition:
-    transform 2s ease-in-out,
-    opacity 1s ease-in-out; */
 
   &.is-active-page {
     display: block;
+  }
+
+  .navigate-animate-out & {
+    opacity: 0;
+  }
+
+  .navigate-animate-in & {
+    opacity: 1;
   }
 }
 

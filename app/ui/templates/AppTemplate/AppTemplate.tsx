@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   ScenarioThemeContent,
   ScenarioType,
@@ -33,6 +33,10 @@ export const AppTemplate = ({
   scenarioThemeContentData,
 }: AppTemplateProps) => {
   const [currentPage, setCurrentPage] = useState<string>("front");
+
+  useEffect(() => {
+    document.body.classList.add("navigate-animate-in");
+  }, []);
 
   return (
     <>
