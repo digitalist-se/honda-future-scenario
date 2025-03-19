@@ -25,6 +25,7 @@
 
   &.zoomed-in {
     cursor: default;
+    pointer-events: none;
   }
 
   &:not(.zoomed-in):hover,

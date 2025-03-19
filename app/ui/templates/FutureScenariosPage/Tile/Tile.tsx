@@ -21,6 +21,7 @@ interface TileProps {
   tileCloneRefs?: React.RefObject<(HTMLButtonElement | null)[]>;
   tilesWrapperRef?: React.RefObject<HTMLDivElement | null>;
   updateLoadedCount?: (loadedCount: number) => void;
+  modalScenarioThemeRef?: React.RefObject<HTMLDivElement | null>;
 }
 
 export const Tile = ({
@@ -36,6 +37,7 @@ export const Tile = ({
   tileCloneRefs,
   tilesWrapperRef,
   updateLoadedCount,
+  modalScenarioThemeRef,
 }: TileProps) => {
   const { width, height } = useWindowSize();
 
@@ -48,6 +50,7 @@ export const Tile = ({
       tileRefs.current[index]?.classList.contains("zoomed-in") ||
       !tileCloneRefs ||
       !tilesWrapperRef?.current ||
+      !modalScenarioThemeRef?.current ||
       !width ||
       !height
     ) {
@@ -76,7 +79,7 @@ export const Tile = ({
     const leftOffset =
       width / 2 - zoomedInTileRect.left - zoomedInTileRect.width / 2;
     const topOffset =
-      height / 2 - zoomedInTileRect.top - zoomedInTileRect.height / 2;
+      height / 1.3 - zoomedInTileRect.top - zoomedInTileRect.height / 2;
 
     tilesWrapperRef.current.style.left = `${leftOffset}px`;
     tilesWrapperRef.current.style.top = `${topOffset}px`;

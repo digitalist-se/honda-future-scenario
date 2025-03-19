@@ -49,6 +49,7 @@ export const FutureScenariosPage = ({
   const slidersWrapperRef = useRef<HTMLDivElement | null>(null);
   const slidersInnerRef = useRef<HTMLDivElement | null>(null);
   const slidersContentRef = useRef<HTMLDivElement | null>(null);
+  const modalScenarioThemeRef = useRef<HTMLDivElement | null>(null);
 
   const { width, height } = useWindowSize();
 
@@ -168,6 +169,7 @@ export const FutureScenariosPage = ({
 
   const [renderTileIsland, setRenderTileIsland] = useState(false);
   useEffect(() => {
+    // Start rendering tile images only when dom loaded
     setRenderTileIsland(true);
 
     if (showFutureScenarios) {
@@ -175,10 +177,6 @@ export const FutureScenariosPage = ({
     } else {
       document.body.classList.remove("show-future-scenarios");
     }
-
-    return () => {
-      document.body.classList.remove("show-future-scenarios");
-    };
   }, [showFutureScenarios]);
 
   const updateLoadedCount = (loadedCount: number) => {
@@ -256,6 +254,7 @@ export const FutureScenariosPage = ({
                       tileCloneRefs={tileCloneRefs}
                       tilesWrapperRef={tilesWrapperRef}
                       updateLoadedCount={updateLoadedCount}
+                      modalScenarioThemeRef={modalScenarioThemeRef}
                     />
                   );
                 })
@@ -356,6 +355,7 @@ export const FutureScenariosPage = ({
         currentScenarioThemeContent={currentScenarioThemeContent}
         tilesWrapperRef={tilesWrapperRef}
         tileRefs={tileRefs}
+        modalScenarioThemeRef={modalScenarioThemeRef}
       />
     </main>
   );

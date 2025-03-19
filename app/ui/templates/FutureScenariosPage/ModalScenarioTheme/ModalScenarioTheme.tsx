@@ -1,16 +1,19 @@
 import { IconClose } from "@/ui/atoms/icons";
 import "./ModalScenarioTheme.css";
+import { useEffect } from "react";
 
 interface ModalScenarioThemeProps {
   currentScenarioThemeContent: any;
   tilesWrapperRef: React.RefObject<HTMLDivElement | null>;
   tileRefs: React.RefObject<(HTMLButtonElement | null)[]>;
+  modalScenarioThemeRef: React.RefObject<HTMLDivElement | null>;
 }
 
 export const ModalScenarioTheme = ({
   currentScenarioThemeContent,
   tilesWrapperRef,
   tileRefs,
+  modalScenarioThemeRef,
 }: ModalScenarioThemeProps) => {
   const handleModalClose = () => {
     document.body.classList.remove("tile-selected");
@@ -26,8 +29,23 @@ export const ModalScenarioTheme = ({
     }
   };
 
+  useEffect(() => {
+    // Close modal on ESC key
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        handleModalClose();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
+
   return (
-    <div className="modal-scenario-theme">
+    <div className="modal-scenario-theme" ref={modalScenarioThemeRef}>
       <button className="modal-close" onClick={handleModalClose}>
         <IconClose />
       </button>
