@@ -96,9 +96,6 @@ export const Slider = ({
 
     // Animate slider handle on scenario/value change
     const newValue = parseInt(item_slider[currentScenario.id], 10);
-    // const sliderElement: HTMLInputElement = sliderRef.current!;
-    // sliderElement.value = `${newValue}`;
-    // setSliderValue(newValue);
 
     animateSlider(sliderValue, newValue, 300);
   }, [item_slider, currentScenario, isDragged]);
@@ -110,33 +107,32 @@ export const Slider = ({
         <div className="slider-label-max">{item_slider.label_right}</div>
       </div>
 
-      <div
-        className="slider-container"
-        style={{
-          background: `linear-gradient(to right, var(--color-blue) ${sliderValue}%, #e1e1e1 ${sliderValue}%)`,
-        }}
-      >
-        {/* Render scenario sticky point markers */}
-        {snapPoints.map((snapPoint, i) => {
-          return (
-            <span
-              key={`snap-point-${i}`}
-              className="sticky-point"
-              style={{ left: `${snapPoint?.value}%` }}
-            />
-          );
-        })}
+      <div className="slider-container">
+        <div className="slider-element">
+          <span className="progress" style={{ width: `${sliderValue}%` }} />
 
-        <input
-          ref={sliderRef}
-          type="range"
-          min="1"
-          max="100"
-          className="slider"
-          defaultValue={sliderValue}
-          onChange={handleDrag}
-          onMouseUp={handleRelease}
-        />
+          {/* Render scenario sticky point markers */}
+          {snapPoints.map((snapPoint, i) => {
+            return (
+              <span
+                key={`snap-point-${i}`}
+                className="sticky-point"
+                style={{ left: `${snapPoint?.value}%` }}
+              />
+            );
+          })}
+
+          <input
+            ref={sliderRef}
+            type="range"
+            min="1"
+            max="100"
+            className="slider"
+            defaultValue={sliderValue}
+            onChange={handleDrag}
+            onMouseUp={handleRelease}
+          />
+        </div>
       </div>
     </div>
   );
