@@ -135,11 +135,6 @@ export const FutureScenariosPage = ({
     /*
      * Set sliders-inner height and position (to enable scrolling)
      */
-    // if (width < 1024) {
-    //   slidersWrapperRef.current!.style.height = `${regionSlidersRef.current!.clientHeight - slidersTitleRef.current!.clientHeight}px`;
-    // } else {
-    //   slidersWrapperRef.current!.style.height = `${regionSlidersRef.current!.clientHeight - slidersTitleRef.current!.clientHeight - slidersInfoRef.current!.clientHeight}px `;
-    // }
     slidersWrapperRef.current!.style.height = `${regionSlidersRef.current!.clientHeight - slidersTitleRef.current!.clientHeight - slidersInfoRef.current!.clientHeight}px `;
 
     // Resize regions on mouse moves

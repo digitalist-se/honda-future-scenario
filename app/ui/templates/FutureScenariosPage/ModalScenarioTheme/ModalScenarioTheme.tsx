@@ -68,15 +68,20 @@ export const ModalScenarioTheme = ({
               <div>No content</div>
             ) : (
               <>
-                <div>
-                  {currentScenarioThemeContent?.title && (
+                {currentScenarioThemeContent?.title && (
+                  <div>
                     <h2>{currentScenarioThemeContent.title}</h2>
-                  )}
-                </div>
+                  </div>
+                )}
 
                 <div>
                   {currentScenarioThemeContent?.text && (
                     <p
+                      className={
+                        currentScenarioThemeContent?.text?.length > 300
+                          ? "font-small"
+                          : ""
+                      }
                       dangerouslySetInnerHTML={{
                         __html: currentScenarioThemeContent?.text,
                       }}
