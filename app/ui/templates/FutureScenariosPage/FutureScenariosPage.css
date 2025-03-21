@@ -71,21 +71,21 @@
     opacity: 0;
 
     .tiles-wrapper {
-      scale: 1.4;
+      --scale: 1.4;
     }
   }
 }
 
 .tiles-wrapper {
-  transform: rotateX(45deg) rotateZ(45deg) skewX(-5.65deg) skewY(-5.65deg)
-    translateY(-30%) translateX(-30%);
-  scale: 0.6;
+  --scale: 0.6;
+  transform: scale(var(--scale)) rotateX(45deg) rotateZ(45deg) skewX(-5.65deg)
+    skewY(-5.65deg) translateY(-30%) translateX(-30%);
   top: 0;
   left: 0;
   transition:
     left 0.6s ease-in-out,
     top 0.6s ease-in-out,
-    scale 0.6s ease-in-out;
+    transform 0.6s ease-in-out;
   width: 0;
   height: 0;
   display: grid;
@@ -129,8 +129,7 @@
   width: 200%;
   transform: rotateZ(-45deg) rotateY(-45deg) scaleY(1.21);
   pointer-events: none;
-  aspect-ratio: 684 / 380;
-  /* display: none; */
+  padding-bottom: 111.11%;
 
   img {
     width: 100%;

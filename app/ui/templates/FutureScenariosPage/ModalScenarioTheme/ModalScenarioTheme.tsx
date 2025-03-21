@@ -25,7 +25,7 @@ export const ModalScenarioTheme = ({
 
       tilesWrapperRef.current!.style.left = ``;
       tilesWrapperRef.current!.style.top = ``;
-      tilesWrapperRef.current!.style.scale = "";
+      tilesWrapperRef.current!.style.removeProperty("--scale");
     }
   };
 

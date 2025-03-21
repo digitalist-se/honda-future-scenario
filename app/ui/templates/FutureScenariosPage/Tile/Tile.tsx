@@ -83,7 +83,7 @@ export const Tile = ({
 
     tilesWrapperRef.current.style.left = `${leftOffset}px`;
     tilesWrapperRef.current.style.top = `${topOffset}px`;
-    tilesWrapperRef.current.style.scale = "1.4";
+    tilesWrapperRef.current.style.setProperty("--scale", "1.4");
 
     setCurrentTheme(themesData![tileData.theme]);
   };
