@@ -1,0 +1,9 @@
+.sliders-about {
+  background: var(--color-lightgray);
+  font-size: 14px;
+  padding: 6px 30px;
+  text-align: center;
+  @media (width >= 1024px) {
+    padding: 10px;
+  }
+}

@@ -18,6 +18,7 @@ import { useWindowSize } from "@/lib/useWindowSize";
 import { ModalScenarioTheme } from "./ModalScenarioTheme";
 import { MegaLoadingButton } from "@/ui/components/MegaLoadingButton";
 import Image from "next/image";
+import { SlidersAbout } from "./SlidersAbout";
 
 interface FutureScenariosPageProps {
   lang: string;
@@ -55,7 +56,7 @@ export const FutureScenariosPage = ({
   const slidersWrapperRef = useRef<HTMLDivElement | null>(null);
   const slidersInnerRef = useRef<HTMLDivElement | null>(null);
   const slidersContentRef = useRef<HTMLDivElement | null>(null);
-  const slidersInfoRef = useRef<HTMLDivElement | null>(null);
+  const slidersAboutDesktopRef = useRef<HTMLDivElement | null>(null);
   const modalScenarioThemeRef = useRef<HTMLDivElement | null>(null);
 
   const { width, height } = useWindowSize();
@@ -135,7 +136,11 @@ export const FutureScenariosPage = ({
     /*
      * Set sliders-inner height and position (to enable scrolling)
      */
-    slidersWrapperRef.current!.style.height = `${regionSlidersRef.current!.clientHeight - slidersTitleRef.current!.clientHeight - slidersInfoRef.current!.clientHeight}px `;
+    if (width >= 1024) {
+      slidersWrapperRef.current!.style.height = `${regionSlidersRef.current!.clientHeight - slidersTitleRef.current!.clientHeight - slidersAboutDesktopRef.current!.clientHeight}px `;
+    } else {
+      slidersWrapperRef.current!.style.height = `${regionSlidersRef.current!.clientHeight - slidersTitleRef.current!.clientHeight}px `;
+    }
 
     // Resize regions on mouse moves
     const handleMouseEnterRegionSliders = () => {
@@ -358,23 +363,19 @@ export const FutureScenariosPage = ({
                   </div>
                 );
               })}
+
+              <div className="sliders-about-mobile-wrapper">
+                <SlidersAbout lang={lang} navigateToPage={navigateToPage} />
+              </div>
             </div>
           </div>
         </div>
 
-        <div className="sliders-info" ref={slidersInfoRef}>
-          <div className="sliders-info-content">
-            Do you want to know more about those sliders?{" "}
-            <a
-              href={`/${lang}/about`}
-              onClick={(e) => {
-                e.preventDefault();
-                navigateToPage("about");
-              }}
-            >
-              <strong>Find out here.</strong>
-            </a>
-          </div>
+        <div
+          className="sliders-about-desktop-wrapper"
+          ref={slidersAboutDesktopRef}
+        >
+          <SlidersAbout lang={lang} navigateToPage={navigateToPage} />
         </div>
       </div>
 
