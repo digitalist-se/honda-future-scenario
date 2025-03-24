@@ -84,21 +84,30 @@ export const FutureScenariosPage = ({
     });
   }
 
-  const processTilesWrapperDimensions = () => {
-    const islandWidth: number = islandRef.current!.clientWidth;
-    const islandHeight: number = islandRef.current!.clientHeight;
-    if (islandWidth >= islandHeight) {
-      tilesWrapperRef.current!.style.height = `${islandHeight}px`;
-      tilesWrapperRef.current!.style.width = `${islandHeight}px`;
+  const processTilesWrapperDimensions = (maxSize?: number) => {
+    // Use maxSize if provided
+    if (maxSize) {
+      tilesWrapperRef.current!.style.height = `${maxSize}px`;
+      tilesWrapperRef.current!.style.width = `${maxSize}px`;
 
-      tilesWrapperCloneRef.current!.style.height = `${islandHeight}px`;
-      tilesWrapperCloneRef.current!.style.width = `${islandHeight}px`;
+      tilesWrapperCloneRef.current!.style.height = `${maxSize}px`;
+      tilesWrapperCloneRef.current!.style.width = `${maxSize}px`;
     } else {
-      tilesWrapperRef.current!.style.height = `${islandWidth}px`;
-      tilesWrapperRef.current!.style.width = `${islandWidth}px`;
+      const islandWidth: number = islandRef.current!.clientWidth;
+      const islandHeight: number = islandRef.current!.clientHeight;
+      if (islandWidth >= islandHeight) {
+        tilesWrapperRef.current!.style.height = `${islandHeight}px`;
+        tilesWrapperRef.current!.style.width = `${islandHeight}px`;
 
-      tilesWrapperCloneRef.current!.style.height = `${islandWidth}px`;
-      tilesWrapperCloneRef.current!.style.width = `${islandWidth}px`;
+        tilesWrapperCloneRef.current!.style.height = `${islandHeight}px`;
+        tilesWrapperCloneRef.current!.style.width = `${islandHeight}px`;
+      } else {
+        tilesWrapperRef.current!.style.height = `${islandWidth}px`;
+        tilesWrapperRef.current!.style.width = `${islandWidth}px`;
+
+        tilesWrapperCloneRef.current!.style.height = `${islandWidth}px`;
+        tilesWrapperCloneRef.current!.style.width = `${islandWidth}px`;
+      }
     }
   };
 
@@ -146,10 +155,16 @@ export const FutureScenariosPage = ({
     const handleMouseEnterRegionSliders = () => {
       islandRef.current!.style.width = "50%";
       regionSlidersRef.current!.style.width = "50%";
+
+      const maxSize = width * 0.5;
+      processTilesWrapperDimensions(maxSize);
     };
     const handleMouseLeaveRegionSliders = () => {
       islandRef.current!.style.width = "";
       regionSlidersRef.current!.style.width = "";
+
+      const maxSize = width * 0.6666;
+      processTilesWrapperDimensions(maxSize);
     };
 
     // Expand slider region on hover on small desktop sizes
