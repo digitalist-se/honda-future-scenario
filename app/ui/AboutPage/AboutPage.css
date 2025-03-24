@@ -79,6 +79,7 @@
   }
 
   .content-wrapper {
+    margin-bottom: 30px;
     @media (width >= 768px) {
       margin: 0 calc(23% + 40px);
     }
