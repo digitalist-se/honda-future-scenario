@@ -9,7 +9,7 @@ import {
   TileImageType,
 } from "@/lib/types";
 import { getDataFromCSV } from "@/lib/utils";
-import { AppTemplate } from "@/ui/templates/AppTemplate";
+import { AppTemplate } from "@/ui/AppTemplate";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {

@@ -9,9 +9,9 @@ import {
   TileDataType,
   TileImageType,
 } from "@/lib/types";
-import { Header } from "@/ui/templates/Layout/Header";
+import { Header } from "@/ui/Layout/Header";
 import { FutureScenariosPage } from "../FutureScenariosPage";
-import { AboutPage } from "../AboutPage";
+import { AboutPage } from "@/ui/AboutPage";
 
 interface AppTemplateProps {
   lang: string;

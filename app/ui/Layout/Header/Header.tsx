@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import "./Header.css";
 import Link from "next/link";
-import { IconArrowRight, IconMenu, IconClose } from "@/ui/atoms/icons";
+import { IconArrowRight, IconMenu, IconClose } from "@/ui/components/icons";
 import { useWindowSize } from "@/lib/useWindowSize";
 
 interface HeaderProps {

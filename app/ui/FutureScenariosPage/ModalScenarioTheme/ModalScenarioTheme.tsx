@@ -1,4 +1,4 @@
-import { IconClose } from "@/ui/atoms/icons";
+import { IconClose } from "@/ui/components/icons";
 import "./ModalScenarioTheme.css";
 import { useEffect } from "react";
 

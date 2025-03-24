@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import "./FutureScenariosPage.css";
-import { Slider } from "../../molecules/Slider";
+import { Slider } from "@/ui/components/Slider";
 import {
   ScenarioThemeContent,
   ScenarioType,
@@ -13,10 +13,10 @@ import {
   TileImageType,
 } from "@/lib/types";
 import { Tile } from "./Tile";
-import { IconArrowDown } from "@/ui/atoms/icons";
+import { IconArrowDown } from "@/ui/components/icons";
 import { useWindowSize } from "@/lib/useWindowSize";
 import { ModalScenarioTheme } from "./ModalScenarioTheme";
-import { MegaLoadingButton } from "@/ui/organisms/MegaLoadingButton";
+import { MegaLoadingButton } from "@/ui/components/MegaLoadingButton";
 import Image from "next/image";
 
 interface FutureScenariosPageProps {
