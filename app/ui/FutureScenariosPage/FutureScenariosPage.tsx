@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import "./FutureScenariosPage.css";
-import { Slider } from "@/ui/components/Slider";
+import { Slider } from "./Slider";
 import {
   ScenarioThemeContent,
   ScenarioType,
