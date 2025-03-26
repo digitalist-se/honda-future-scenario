@@ -1,12 +1,12 @@
 id,group,label_left,label_right,tech_titans,stagnation_nation,asleep_at_the_wheel,cost_of_safety,leading_lagging,us_topia
-1,Global Power Shifts,Status quo,Revised,93,44,2,,,69
-2,Global Power Shifts,EU power increases,EU power reduces,15,53,2,,,4
-3,Global response to the fight for raw materials,Conflict,Cooperation,31,50,2,,,95
-4,Quality of EU innovation and infrastructure,Weak,Strong,62,7,2,,,60
-5,Socialisation,Online,Offline,32,19,2,,,24
-6,Socialisation,Rare,Daily,61,54,2,,,88
-7,Socialisation,Remote working,In-person working,21,9,2,,,31
-8,Adoption of sustainable behaviours,Rare,Widespread,65,19,2,,,81
-9,Adoption of sustainable behaviours,Driven by government,Driven by self,43,95,2,,,10
-10,Normalisation of VR/AR,Rare,Mass adoption,37,50,2,,,95
-11,Development of battery technology,Incremental,Transformational,33,15,2,,,95
+1,Global Power Shifts,Status quo,Revised,93,44,32,68,84,69
+2,Global Power Shifts,EU power increases,EU power reduces,15,53,25,70,80,4
+3,Global response to the fight for raw materials,Conflict,Cooperation,31,50,15,52,34,95
+4,Quality of EU innovation and infrastructure,Weak,Strong,62,7,25,63,24,60
+5,Socialisation,Online,Offline,32,19,18,70,42,24
+6,Socialisation,Rare,Daily,61,54,26,65,70,88
+7,Socialisation,Remote working,In-person working,21,9,30,45,12,31
+8,Adoption of sustainable behaviours,Rare,Widespread,65,19,15,85,8,81
+9,Adoption of sustainable behaviours,Driven by government,Driven by self,43,95,86,28,52,10
+10,Normalisation of VR/AR,Rare,Mass adoption,37,50,15,70,58,95
+11,Development of battery technology,Incremental,Transformational,33,15,20,89,83,95
