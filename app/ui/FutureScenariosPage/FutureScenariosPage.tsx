@@ -43,6 +43,7 @@ export const FutureScenariosPage = ({
   scenarioThemeContentData,
   navigateToPage,
 }: FutureScenariosPageProps) => {
+  const frontPageWrapperRef = useRef<HTMLDivElement | null>(null);
   const loadingScenariosRef = useRef<HTMLDivElement | null>(null);
   const regionIslandRef = useRef<HTMLDivElement | null>(null);
   const islandRef = useRef<HTMLDivElement | null>(null);
@@ -117,11 +118,12 @@ export const FutureScenariosPage = ({
     // Start rendering tile images only when dom loaded
     setRenderTileIsland(true);
 
-    const frontPageWrapperElement: HTMLElement | null = document.querySelector(
-      ".front-page-wrapper"
-    );
     // Return if not frontpage
-    if (!frontPageWrapperElement) return;
+    if (
+      !frontPageWrapperRef?.current ||
+      !frontPageWrapperRef?.current.classList.contains("is-active-page")
+    )
+      return;
 
     const pageHeaderElement: HTMLElement =
       document.querySelector(".page-header")!;
@@ -132,9 +134,9 @@ export const FutureScenariosPage = ({
     const page_header_height = pageHeaderElement.clientHeight;
     const page_wrapper_height = height - page_header_height;
     if (width >= 1024) {
-      frontPageWrapperElement.style.height = `${page_wrapper_height}px`;
+      frontPageWrapperRef.current.style.height = `${page_wrapper_height}px`;
     } else {
-      frontPageWrapperElement.style.height = `${height}px`;
+      frontPageWrapperRef.current.style.height = `${height}px`;
     }
 
     /*
@@ -213,6 +215,7 @@ export const FutureScenariosPage = ({
         "front-page-wrapper",
         isActivePage ? "is-active-page" : null,
       ].join(" ")}
+      ref={frontPageWrapperRef}
     >
       <div className="loading-scenarios" ref={loadingScenariosRef}>
         <div className="loading-scenarios-inner">
@@ -346,7 +349,6 @@ export const FutureScenariosPage = ({
               } else {
                 document.body.classList.add("mobile-sliders-open");
               }
-              processTilesWrapperDimensions();
             }}
           >
             <span>Choose a future</span>
