@@ -109,6 +109,7 @@
   background-size: contain;
   background-color: transparent;
   box-shadow: none !important;
+  border: 0;
   height: 34px;
   width: 44px;
   @media (width >= 1024px) {

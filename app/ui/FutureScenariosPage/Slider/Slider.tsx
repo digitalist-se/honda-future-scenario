@@ -131,6 +131,7 @@ export const Slider = ({
             defaultValue={sliderValue}
             onChange={handleDrag}
             onMouseUp={handleRelease}
+            onTouchEnd={handleRelease}
           />
         </div>
       </div>
