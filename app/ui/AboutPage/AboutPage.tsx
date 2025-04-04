@@ -1,5 +1,6 @@
 import "./AboutPage.css";
 import { ContactForm } from "./ContactForm";
+import Image from "next/image";
 
 interface AboutPageProps {
   isActivePage: boolean;
@@ -15,7 +16,12 @@ export const AboutPage = ({ isActivePage }: AboutPageProps) => {
     >
       <div className="container">
         <div className="island island-1">
-          <img src="/about-island-1.svg" alt="Floating island 1" />
+          <Image
+            src="/about-island-1.png"
+            alt="Floating island 1"
+            width={333}
+            height={413}
+          />
         </div>
 
         <div className="content-wrapper">
@@ -48,7 +54,12 @@ export const AboutPage = ({ isActivePage }: AboutPageProps) => {
         </div>
 
         <div className="island island-2">
-          <img src="/about-island-2.svg" alt="Floating island 1" />
+          <Image
+            src="/about-island-2.png"
+            alt="Floating island 2"
+            width={333}
+            height={422}
+          />
         </div>
       </div>
     </div>
