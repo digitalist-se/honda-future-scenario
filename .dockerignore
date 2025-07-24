@@ -1,0 +1,6 @@
+cdk
+node_modules
+.git
+*.log
+dockerfile
+*.md

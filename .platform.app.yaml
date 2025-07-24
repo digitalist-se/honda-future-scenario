@@ -47,7 +47,13 @@ hooks:
   # The build hook is run after any build flavor.
   # More information: https://docs.platform.sh/create-apps/hooks/hooks-comparison.html#build-hook
     build: |
-        npm install
+        # Run the build only for main and develop branches
+        if [ "$PLATFORM_BRANCH" != "main" ] && [ "$PLATFORM_BRANCH" != "develop" ]; then
+            echo "Skipping build for branch: $PLATFORM_BRANCH"
+            exit 0
+        fi
+        # continue with build commands
+        npm ci
         npm run build
         # Move committed files in soon-to-be mounts into temp directory.
         chmod +x handle_mounts.sh

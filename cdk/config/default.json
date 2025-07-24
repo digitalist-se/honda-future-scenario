@@ -1,0 +1,48 @@
+{
+    "environment": "dev",
+    "hostedzone": {
+        "useroute53": false,
+        "domain": "hondafuturescenario.digitalistgroup.com",
+        "environmentdomain": "hondafuturescenario.digitalistgroup.com"
+    },
+    "ses": {
+        "enableidentity": false,
+        "identity": "hondafuturescenario.digitalistgroup.com",
+        "emailidentities": [
+            "sandeep.baynes@digitalistgroup.com"
+        ]
+    },
+    "secrets": {
+        "name": "honda-future-secrets-2372025"
+    },
+    "nextrepository": {
+        "maxecrimagecount": 5,
+        "repo": {
+            "owner": "digitalist-se",
+            "repo": "honda-future-scenario",
+            "branchorref": "develop"
+        }
+    },
+    "nextservice": {
+        "taskmemory": 2048,
+        "taskvcpu": 256,
+        "serviceport": 3000,
+        "desiredtaskcount": 0,
+        "maxtaskcount": 2
+    },
+    "distribution": {
+        "domain": "hondafuturescenario.digitalistgroup.com"
+    },
+    "codeconnection": {
+        "id": "*"
+    },
+    "vpc": {
+        "name": "honda-future-scenario"
+    },
+    "defaultremovalpolicy": "destroy",
+    "defaultlogretention": 731,
+    "tags": {
+        "appname": "honda-future-scenario",
+        "environment": "dev"
+    }
+}
