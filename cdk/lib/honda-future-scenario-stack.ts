@@ -15,7 +15,7 @@ import { LoadBalancerV2Origin } from 'aws-cdk-lib/aws-cloudfront-origins';
 import { BuildEnvironmentVariableType, BuildSpec, ComputeType, LinuxArmBuildImage, Project, Source } from 'aws-cdk-lib/aws-codebuild';
 import { SecurityGroup, SubnetType, Vpc } from 'aws-cdk-lib/aws-ec2';
 import { Repository } from 'aws-cdk-lib/aws-ecr';
-import { Cluster, ContainerImage, ContainerInsights, FargateService, FargateTaskDefinition, LogDrivers, PropagatedTagSource, Secret } from 'aws-cdk-lib/aws-ecs';
+import { Cluster, ContainerImage, ContainerInsights, CpuArchitecture, FargateService, FargateTaskDefinition, LogDrivers, OperatingSystemFamily, PropagatedTagSource, Secret } from 'aws-cdk-lib/aws-ecs';
 import { ApplicationLoadBalancer, ApplicationProtocol, ApplicationTargetGroup, TargetType } from 'aws-cdk-lib/aws-elasticloadbalancingv2';
 import { Effect, ManagedPolicy, PolicyStatement, Role, ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 import { LogGroup } from 'aws-cdk-lib/aws-logs';
@@ -157,6 +157,7 @@ export class HondaFutureScenarioStack extends cdk.Stack {
             loadBalancerName: `${config.get('environment')}-honda-future-scenario-alb`,
             vpc: vpc,
             securityGroup: nextSecurityGroup,
+            internetFacing: true,
             vpcSubnets: {
                 subnetType: SubnetType.PUBLIC,
                 onePerAz: true, // Required in case multiple public subnets exist. ALB can not be deployed to more than one public subnet in a single AZ
@@ -203,8 +204,8 @@ export class HondaFutureScenarioStack extends cdk.Stack {
             memoryLimitMiB: config.get('nextservice.taskmemory'),
             cpu: config.get('nextservice.taskvcpu'),
             runtimePlatform: {
-                cpuArchitecture: cdk.aws_ecs.CpuArchitecture.ARM64,
-                operatingSystemFamily: cdk.aws_ecs.OperatingSystemFamily.LINUX,
+                cpuArchitecture: CpuArchitecture.ARM64,
+                operatingSystemFamily: OperatingSystemFamily.LINUX,
             },
             taskRole: nextTaskRole,
         });
