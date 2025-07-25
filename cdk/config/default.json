@@ -31,7 +31,12 @@
         "maxtaskcount": 2
     },
     "distribution": {
-        "domain": "hondafuturescenario.digitalistgroup.com"
+        "domain": "hondafuturescenario.digitalistgroup.com",
+        "defaultCachePolicy": {
+            "minttl": 1,
+            "maxttl": 1,
+            "defaultttl": 1
+        }
     },
     "codeconnection": {
         "id": "*"

@@ -9,8 +9,9 @@
     Make sure that code connections already has connected to the git/gitlab repository. Specify the connection details in the config json
 */
 import * as cdk from 'aws-cdk-lib';
+import { App, Aws, Duration, RemovalPolicies, Stack, StackProps, Tags } from 'aws-cdk-lib';
 import { ICertificate } from 'aws-cdk-lib/aws-certificatemanager';
-import { AllowedMethods, CachePolicy, Distribution, OriginProtocolPolicy, ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront';
+import { AllowedMethods, CacheCookieBehavior, CacheHeaderBehavior, CachePolicy, CacheQueryStringBehavior, Distribution, OriginProtocolPolicy, ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { LoadBalancerV2Origin } from 'aws-cdk-lib/aws-cloudfront-origins';
 import { BuildEnvironmentVariableType, BuildSpec, ComputeType, LinuxArmBuildImage, Project, Source } from 'aws-cdk-lib/aws-codebuild';
 import { SecurityGroup, SubnetType, Vpc } from 'aws-cdk-lib/aws-ec2';
@@ -26,14 +27,14 @@ import { DkimIdentity, EasyDkimSigningKeyLength, EmailIdentity, Identity } from 
 import config = require('config');
 import { createHash } from 'crypto';
 
-export interface HondaFutureScenarioStackProps extends cdk.StackProps {
+export interface HondaFutureScenarioStackProps extends StackProps {
     hostedZone: IHostedZone | undefined;
     secrets: ISecret;
     domainCertificate: ICertificate;
 }
 
-export class HondaFutureScenarioStack extends cdk.Stack {
-    constructor(scope: cdk.App, id: string, props: HondaFutureScenarioStackProps) {
+export class HondaFutureScenarioStack extends Stack {
+    constructor(scope: App, id: string, props: HondaFutureScenarioStackProps) {
         super(scope, id, props);
         // SES configuration (for outbound emails)
         // Ensure DKIM entries are added to the DNS if route53 hosted zone is not used
@@ -88,7 +89,7 @@ export class HondaFutureScenarioStack extends cdk.Stack {
                     value: `${this.account}.dkr.ecr.${this.region}.amazonaws.com`
                 }
             },
-            timeout: cdk.Duration.minutes(60),
+            timeout: Duration.minutes(60),
         });
         nextBuildProject.applyRemovalPolicy(config.get('defaultremovalpolicy'));
         nextRepository.grantPullPush(nextBuildProject);
@@ -119,12 +120,12 @@ export class HondaFutureScenarioStack extends cdk.Stack {
                 {
                     cidrMask: 24,
                     name: 'PublicSubnet1',
-                    subnetType: cdk.aws_ec2.SubnetType.PUBLIC,
+                    subnetType: SubnetType.PUBLIC,
                 },
                 {
                     cidrMask: 24,
                     name: 'IsolatedSubnet1',
-                    subnetType: cdk.aws_ec2.SubnetType.PRIVATE_ISOLATED,
+                    subnetType: SubnetType.PRIVATE_ISOLATED,
                 },
             ],
             // Gateway endpoints to allow resources to reach S3 and DynamoDB within the AWS network instead of going to public net
@@ -188,7 +189,7 @@ export class HondaFutureScenarioStack extends cdk.Stack {
                 'logs:PutLogEvents',
                 'logs:PutRetentionPolicy',
             ],
-            resources: [`arn:aws:logs:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:log-group:*:log-stream:*`],
+            resources: [`arn:aws:logs:${Aws.REGION}:${Aws.ACCOUNT_ID}:log-group:*:log-stream:*`],
         }));
         nextTaskRole.addToPolicy(new PolicyStatement({
             actions: [
@@ -196,7 +197,7 @@ export class HondaFutureScenarioStack extends cdk.Stack {
                 "ses:SendRawEmail"
             ],
             resources: [
-                `arn:aws:ses:${cdk.Aws.REGION}:${cdk.Aws.ACCOUNT_ID}:identity/${config.get('ses.identity')}`
+                `arn:aws:ses:${Aws.REGION}:${Aws.ACCOUNT_ID}:identity/${config.get('ses.identity')}`
             ]
         }));
         // Define the task and service for nextjs application
@@ -219,7 +220,7 @@ export class HondaFutureScenarioStack extends cdk.Stack {
         nextTaskDefinition.addContainer('NextContainer', {
             image: ContainerImage.fromEcrRepository(nextRepository),    // Get the latest image
             environment: {
-                AWS_REGION: cdk.Aws.REGION,
+                AWS_REGION: Aws.REGION,
             },
             secrets: {
                 NEXT_PUBLIC_RECAPTHA_SITE_KEY: Secret.fromSecretsManager(props.secrets, 'NEXT_PUBLIC_RECAPTHA_SITE_KEY'),
@@ -235,10 +236,10 @@ export class HondaFutureScenarioStack extends cdk.Stack {
             ],
             healthCheck: {
                 command: [`curl -f http://0.0.0.0:${config.get('nextservice.serviceport')}/api/health || exit 1`],
-                interval: cdk.Duration.seconds(30),
+                interval: Duration.seconds(30),
                 retries: 3,
-                startPeriod: cdk.Duration.seconds(60),
-                timeout: cdk.Duration.seconds(5)
+                startPeriod: Duration.seconds(60),
+                timeout: Duration.seconds(5)
             },
         });
         // Create the fargate service which will host the tasks
@@ -252,7 +253,7 @@ export class HondaFutureScenarioStack extends cdk.Stack {
             vpcSubnets: {
                 subnetType: SubnetType.PUBLIC,
             },
-            healthCheckGracePeriod: cdk.Duration.minutes(5),   // Wait for 5 minutes before checking the health of the service
+            healthCheckGracePeriod: Duration.minutes(5),   // Wait for 5 minutes before checking the health of the service
             minHealthyPercent: 50,   // At least 50% of the tasks should be healthy
             propagateTags: PropagatedTagSource.SERVICE
         });
@@ -290,13 +291,23 @@ export class HondaFutureScenarioStack extends cdk.Stack {
             originId: 'next-service',
             protocolPolicy: OriginProtocolPolicy.HTTP_ONLY
         });
+        // Createa a cache policy to allow headers and query string parameters
+        var defaultCachePolicy = new CachePolicy(this, "DefaultCachePolicy", {
+            cachePolicyName: `${config.get('environment')}-honda-future-scenario-default`,
+            defaultTtl: Duration.seconds(config.get('distribution.defaultCachePolicy.defaultttl')),  //Required in order to allow authorization header pass through
+            minTtl: Duration.seconds(config.get('distribution.defaultCachePolicy.minttl')),
+            maxTtl: Duration.seconds(config.get('distribution.defaultCachePolicy.maxttl')),
+            headerBehavior: CacheHeaderBehavior.allowList('Origin', 'Accept', 'Accept-Encoding', 'Authorization', 'Host', 'Referer'),
+            queryStringBehavior: CacheQueryStringBehavior.all(),
+            cookieBehavior: CacheCookieBehavior.all()
+        });
         // Create the cloudfront distribution
         var distribution = new Distribution(this, 'CloudfrontDistribution', {
             comment: config.get('distribution.domain'),
             //Default behavior navigates to the client website
             defaultBehavior: {
                 allowedMethods: AllowedMethods.ALLOW_ALL,
-                cachePolicy: CachePolicy.USE_ORIGIN_CACHE_CONTROL_HEADERS_QUERY_STRINGS,    // Since we want to include query strings
+                cachePolicy: defaultCachePolicy,
                 viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
                 origin: nextOrigin
             },
@@ -316,15 +327,15 @@ export class HondaFutureScenarioStack extends cdk.Stack {
                 zone: props.hostedZone,
                 recordName: config.get('distribution.domain'),
                 comment: `${config.get('distribution.domain')}`,
-                ttl: cdk.Duration.minutes(5),
+                ttl: Duration.minutes(5),
                 target: RecordTarget.fromAlias(new CloudFrontTarget(distribution))
             });
         }
 
         // Apply the default removal policy for any resource that hasn't specified the removal policy
-        cdk.RemovalPolicies.of(this).apply(config.get('defaultremovalpolicy'));
+        RemovalPolicies.of(this).apply(config.get('defaultremovalpolicy'));
         // Tag all resources in the stack
-        cdk.Tags.of(this).add('AppName', config.get('tags.appname'));
-        cdk.Tags.of(this).add('Environment', config.get('tags.environment'));
+        Tags.of(this).add('AppName', config.get('tags.appname'));
+        Tags.of(this).add('Environment', config.get('tags.environment'));
     }
 }
