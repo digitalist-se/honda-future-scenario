@@ -10,7 +10,7 @@
 */
 import * as cdk from 'aws-cdk-lib';
 import { ICertificate } from 'aws-cdk-lib/aws-certificatemanager';
-import { AllowedMethods, Distribution, OriginProtocolPolicy, ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront';
+import { AllowedMethods, CachePolicy, Distribution, OriginProtocolPolicy, ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront';
 import { LoadBalancerV2Origin } from 'aws-cdk-lib/aws-cloudfront-origins';
 import { BuildEnvironmentVariableType, BuildSpec, ComputeType, LinuxArmBuildImage, Project, Source } from 'aws-cdk-lib/aws-codebuild';
 import { SecurityGroup, SubnetType, Vpc } from 'aws-cdk-lib/aws-ec2';
@@ -296,6 +296,7 @@ export class HondaFutureScenarioStack extends cdk.Stack {
             //Default behavior navigates to the client website
             defaultBehavior: {
                 allowedMethods: AllowedMethods.ALLOW_ALL,
+                cachePolicy: CachePolicy.USE_ORIGIN_CACHE_CONTROL_HEADERS_QUERY_STRINGS,    // Since we want to include query strings
                 viewerProtocolPolicy: ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
                 origin: nextOrigin
             },
