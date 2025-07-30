@@ -1,5 +1,6 @@
 # Honda Future Scenario - AWS Infrastructure
 This project (or sub-project) defines the iaac for the Honda Future Scenario project. See infrastructure diagram [here](./architecture.png).<br>
+<img src="./architecture.png" />
 The project expects that you have alredy installed and setup the [aws cli](https://aws.amazon.com/cli/) and the (cdk cli)[https://docs.aws.amazon.com/cdk/v2/guide/cli.html].
 The project also expects that you have already configured an aws access profile. If not, run command ```aws configure``` and follow the steps.
 
