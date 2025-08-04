@@ -39,7 +39,7 @@
         }
     },
     "codeconnection": {
-        "id": "*"
+        "id": "73dfee87-93ae-430c-9281-5ed62950fadd"
     },
     "vpc": {
         "name": "honda-future-scenario"

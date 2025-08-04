@@ -10,14 +10,6 @@ RUN npm run build
 FROM public.ecr.aws/docker/library/node:22 AS runtime
 WORKDIR /app
 
-# Environment variables
-# Accept the build args
-ARG NEXT_PUBLIC_RECAPTHA_SITE_KEY
-ARG RECAPTHA_SECRET_KEY
-# Set it as a runtime environment variable
-ENV NEXT_PUBLIC_RECAPTHA_SITE_KEY=$NEXT_PUBLIC_RECAPTHA_SITE_KEY
-ENV RECAPTHA_SECRET_KEY=$RECAPTHA_SECRET_KEY
-
 # Copy source files
 COPY --from=builder /app ./
 
