@@ -7,6 +7,20 @@ The project also expects that you have already configured an aws access profile.
 ## Deployment instructions
 <i>Make sure that the aws account/region is bootstrapped before deploying any cdk related updates. Run command ```cdk bootstrap``` to do this.</i>
 - Create a code connection between AWS account and the repository. This is a manual step and needs to be done before we can use code pipeline.
+- If using SES SMTP for email services, you will require SMTP credentials in AWS. Create a user in IAM with the following policy:
+```json
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": "ses:SendRawEmail",
+            "Resource": "*"
+        }
+    ]
+}
+```
+- You can also do this by going to SES > SMTP settings and click create SMTP credentials button.
 - Create a new config file in [config](./config/) folder. File name can be the environment name. Example, prod, dev, stg, etc...
 - Add any property values which are different from the [default.json](./config/default.json) to this new file.
 <br>Example: The below config only overrides the environment name, hostedzone domain and the secrets name.

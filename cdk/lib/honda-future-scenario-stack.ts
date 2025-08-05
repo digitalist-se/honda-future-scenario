@@ -226,6 +226,10 @@ export class HondaFutureScenarioStack extends Stack {
                 NEXT_PUBLIC_RECAPTHA_SITE_KEY: Secret.fromSecretsManager(props.secrets, 'NEXT_PUBLIC_RECAPTHA_SITE_KEY'),
                 RECAPTHA_SECRET_KEY: Secret.fromSecretsManager(props.secrets, 'RECAPTHA_SECRET_KEY'),
                 CONTACT_FORM_TO_EMAIL: Secret.fromSecretsManager(props.secrets, 'CONTACT_FORM_TO_EMAIL'),
+                CONTACT_FORM_FROM_EMAIL: Secret.fromSecretsManager(props.secrets, 'CONTACT_FORM_FROM_EMAIL'),
+                SMTP_HOST: Secret.fromSecretsManager(props.secrets, 'SMTP_HOST'),
+                SMTP_USER: Secret.fromSecretsManager(props.secrets, 'SMTP_USER'),
+                SMTP_PASSWORD: Secret.fromSecretsManager(props.secrets, 'SMTP_PASSWORD'),
             },
             logging: LogDrivers.awsLogs({
                 streamPrefix: 'next-application',
