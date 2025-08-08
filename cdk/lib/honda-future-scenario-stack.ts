@@ -8,7 +8,6 @@
     
     Make sure that code connections already has connected to the git/gitlab repository. Specify the connection details in the config json
 */
-import * as cdk from 'aws-cdk-lib';
 import { App, Aws, Duration, RemovalPolicies, Stack, StackProps, Tags } from 'aws-cdk-lib';
 import { ICertificate } from 'aws-cdk-lib/aws-certificatemanager';
 import { AllowedMethods, CacheCookieBehavior, CacheHeaderBehavior, CachePolicy, CacheQueryStringBehavior, Distribution, OriginProtocolPolicy, ViewerProtocolPolicy } from 'aws-cdk-lib/aws-cloudfront';
@@ -323,7 +322,9 @@ export class HondaFutureScenarioStack extends Stack {
             errorResponses: [{
                 httpStatus: 404,
                 responsePagePath: '/404'
-            }]
+            }],
+            certificate: props.domainCertificate,
+            domainNames: [config.get('distribution.domain')],
         });
         // Add a dns entry to the hosted zone if we are using hosted zones
         if (props.hostedZone) {

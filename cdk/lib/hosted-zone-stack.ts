@@ -23,7 +23,8 @@ export class HostedZoneStack extends cdk.Stack {
                 domainName: config.get('hostedzone.domain')
             });
             if (this.hostedZone.hostedZoneId == "DUMMY") {
-                throw `No zone found for ${config.get('hostedzone.domain')}`;
+                this.hostedZone = new HostedZone(this, 'NewHondaFSHostedZone', { zoneName: config.get('hostedzone.domain') });
+                this.hostedZone.applyRemovalPolicy(config.get('defaultremovalpolicy'));
             }
             else {
                 console.log(`Found existing zone: ${this.hostedZone.hostedZoneArn}`);

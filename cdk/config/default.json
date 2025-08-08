@@ -1,13 +1,13 @@
 {
     "environment": "dev",
     "hostedzone": {
-        "useroute53": false,
-        "domain": "hondafuturescenario.digitalistgroup.com",
-        "environmentdomain": "hondafuturescenario.digitalistgroup.com"
+        "useroute53": true,
+        "domain": "dotaws.dgtest.se",
+        "environmentdomain": "hondafs.dotaws.dgtest.se"
     },
     "ses": {
-        "enableidentity": false,
-        "identity": "hondafuturescenario.digitalistgroup.com",
+        "enableidentity": true,
+        "identity": "hondafs.dotaws.dgtest.se",
         "emailidentities": [
             "sandeep.baynes@digitalistgroup.com"
         ]
@@ -31,7 +31,7 @@
         "maxtaskcount": 2
     },
     "distribution": {
-        "domain": "hondafuturescenario.digitalistgroup.com",
+        "domain": "hondafs.dotaws.dgtest.se",
         "defaultCachePolicy": {
             "minttl": 1,
             "maxttl": 1,

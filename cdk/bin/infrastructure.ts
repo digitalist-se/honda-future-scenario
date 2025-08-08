@@ -28,4 +28,5 @@ new HondaFutureScenarioStack(app, `${config.get('environment')}-HondaFutureScena
     account: process.env.CDK_DEPLOY_ACCOUNT || process.env.CDK_DEFAULT_ACCOUNT,
     region: process.env.CDK_DEPLOY_REGION || process.env.CDK_DEFAULT_REGION
   },
+  crossRegionReferences: true,
 });
