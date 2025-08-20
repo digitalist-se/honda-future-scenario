@@ -24,8 +24,8 @@
         }
     },
     "nextservice": {
-        "taskmemory": 2048,
-        "taskvcpu": 256,
+        "taskmemory": 4096,
+        "taskvcpu": 1024,
         "serviceport": 3000,
         "desiredtaskcount": 0,
         "maxtaskcount": 2
