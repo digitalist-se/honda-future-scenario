@@ -40,7 +40,7 @@ export class HondaFutureScenarioStack extends Stack {
         // Identity is created only if enableidentity config is true. If not, only emailidentities are created if they are added
         if (config.get('ses.enableidentity')) {
             const sesIdentity = new EmailIdentity(this, "EmailIdentity", {
-                identity: props.hostedZone ? Identity.publicHostedZone(props.hostedZone) : Identity.domain(config.get('ses.identity')),
+                identity: Identity.domain(config.get('ses.identity')),
                 dkimIdentity: DkimIdentity.easyDkim(EasyDkimSigningKeyLength.RSA_2048_BIT)
             });
         }
