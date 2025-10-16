@@ -18,3 +18,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - To deploy in a docker container, use the provided (dockerfile)[./dockerfile]
 <br>
 <b>Note:</b> When deploying outside of AWS, ensure that the aws credentials are specified in the environment variable so the system can communicate with the appropriate aws services. See [`infrastructure`](./cdk/architecture.png) diagram for more information. The next js application is hosted in ECS as task(s) in a service in the "Next JS Application Cluster". Specify an AWS_PROFILE if running on a VM with multiple aws profiles pre-configured. Or use AWS_ACCESS_KEY and AWS_SECRET_KEY env vars to speficy the iam credentials. Use AWS_REGION to specify the region where the services are hosted.
+
+## Local contarinerized instructions
+podman run -d --name honda-future-scenario-container -p 3000:3000 -v $(pwd)/.env:/app/.env:Z -v $(pwd)/run.sh:/app/run.sh:Z honda-future-scenario
+podman build -t honda-future-scenario -f dockerfile
+podman exec -it honda-future-scenario-container /bin/sh
