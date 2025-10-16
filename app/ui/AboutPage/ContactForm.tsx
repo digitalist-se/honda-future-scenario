@@ -25,30 +25,32 @@ export const ContactForm = () => {
   } = methods;
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
-    // First verify user via invisible reCAPTCHA v3
-    const token = await grecaptcha.execute(
-      process.env.NEXT_PUBLIC_RECAPTHA_SITE_KEY!,
-      {
-        action: "submit",
-      }
-    );
-    const response_recaptcha = await fetch("/api/recaptcha", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        token,
-      }),
-    });
-    const result_recaptcha = await response_recaptcha.json();
-    if (!result_recaptcha.success) {
-      setError("verified", {
-        type: "custom",
-        message: "Sorry, failed user verification. Please contact support.",
+    // First verify user via invisible reCAPTCHA v3 if reCAPTCHA site key is provided. Assume recaptcha is not enabled if key is not provided.
+    if (process.env.NEXT_PUBLIC_RECAPTHA_SITE_KEY) {
+      const token = await grecaptcha.execute(
+        process.env.NEXT_PUBLIC_RECAPTHA_SITE_KEY,
+        {
+          action: "submit",
+        }
+      );
+      const response_recaptcha = await fetch("/api/recaptcha", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          token,
+        }),
       });
+      const result_recaptcha = await response_recaptcha.json();
+      if (!result_recaptcha.success) {
+        setError("verified", {
+          type: "custom",
+          message: "Sorry, failed user verification. Please contact support.",
+        });
 
-      return;
+        return;
+      }
     }
     clearErrors("verified");
 
