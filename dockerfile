@@ -4,6 +4,8 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm ci
 COPY . .
+# Remove the cdk folder if it exists to avoid unneccessary errors in next build
+RUN rm -rf cdk
 RUN npm run build
 
 # Create production image
@@ -20,4 +22,5 @@ EXPOSE 3000
 ENV NODE_ENV=production
 
 # Start the app
-CMD ["npm", "start"]
+# Use the run.sh file which starts the app and also runs the warmup script to cache the images
+CMD ["bash","/app/run.sh"]

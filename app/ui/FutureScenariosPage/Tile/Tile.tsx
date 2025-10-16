@@ -113,6 +113,7 @@ export const Tile = ({
                 width={300}
                 height={300}
                 loading="lazy"
+                unoptimized={true}  // Removing optimization as it may not be required for the audience. TODO: figure out how to cache optimized images instead of using NEXT image optimization on the fly
                 onLoad={() => {
                   let imagesLoadedCount: number = 0;
                   const imagesLoadedCountAttrib: string | null = document

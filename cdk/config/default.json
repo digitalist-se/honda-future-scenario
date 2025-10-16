@@ -2,15 +2,13 @@
     "environment": "dev",
     "hostedzone": {
         "useroute53": true,
-        "domain": "dotaws.dgtest.se",
-        "environmentdomain": "hondafs.dotaws.dgtest.se"
+        "domain": "futeur.net",
+        "environmentdomain": "dev.futeur.net"
     },
     "ses": {
         "enableidentity": true,
-        "identity": "hondafs.dotaws.dgtest.se",
-        "emailidentities": [
-            "sandeep.baynes@digitalistgroup.com"
-        ]
+        "identity": "dev.futeur.net",
+        "emailidentities": []
     },
     "secrets": {
         "name": "honda-future-secrets-2372025"
@@ -27,11 +25,11 @@
         "taskmemory": 4096,
         "taskvcpu": 1024,
         "serviceport": 3000,
-        "desiredtaskcount": 0,
+        "desiredtaskcount": 1,
         "maxtaskcount": 2
     },
     "distribution": {
-        "domain": "hondafs.dotaws.dgtest.se",
+        "domain": "dev.futeur.net",
         "defaultCachePolicy": {
             "minttl": 1,
             "maxttl": 1,
